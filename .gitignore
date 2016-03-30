@@ -1,0 +1,17 @@
+
+pf_test1
+pf_test2
+pf_test3
+*.a
+
+
+*.o
+*.cmo
+*.cmi
+*.exe
+*.cmx
+\#*\#
+\.\#*
+*\~
+.#*
+.DS_Store
