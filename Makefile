@@ -11,9 +11,10 @@ MKGEN_INCLUDESDIRS		:= include
 MKGEN_OBJDIR			:= build
 # Source files directories
 MKGEN_SRCSDIRS_PF		:= src_pf
-MKGEN_SRCSDIRS_PF_TEST1	:= src_pf src_pf_test1
-MKGEN_SRCSDIRS_PF_TEST2	:= src_pf src_pf_test2
-MKGEN_SRCSDIRS_PF_TEST3	:= src_pf src_pf_test3
+MKGEN_SRCSDIRS_PF_TEST1	:= src_pf_test1
+MKGEN_SRCSDIRS_PF_TEST2	:= src_pf_test2
+MKGEN_SRCSDIRS_PF_TEST3	:= src_pf_test3
+MKGEN_SRCSDIRS_RM		:= src_rm
 
 # mkgen -> MKGEN_SRCSBIN_* variables
 # mkgen -> $(MKGEN_OBJDIR)/**/*.o rules
@@ -39,37 +40,67 @@ MAKEFLAGS		+= -j
 
 BUILD_MODE		= pf
 
+# ==================================== #
+# From stanford makefile:
+
+# The STATS_OPTION can be set to -DPF_STATS or to nothing to turn on and
+# off buffer manager statistics.  The student should not modify this
+# flag at all!
+BASE_FLAGS += -DPF_STATS
+
+# ==================================== #
+
 ifeq ($(BUILD_MODE),pf)
 	NAME			:= libpf.a
 	CC_LD			= ar
+	LD_FLAGS		= rcs $@
+	BASE_FLAGS		+= -O2
+
 	SRCSBIN			= $(MKGEN_SRCSBIN_PF) #gen by mkgen
 	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
-	BASE_FLAGS		+=
+
+else ifeq ($(BUILD_MODE),rm)
+	NAME			:= librm.a
+	CC_LD			= ar
 	LD_FLAGS		= rcs $@
+
+	SRCSBIN			= $(MKGEN_SRCSBIN_RM) #gen by mkgen
+	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+
 else ifeq ($(BUILD_MODE),pf_test1)
 	NAME			:= pf_test1
 	CC_LD			= $(CC_CPP)
+	LD_FLAGS		+= -L. -lpf
+
 	SRCSBIN			= $(MKGEN_SRCSBIN_PF_TEST1) #gen by mkgen
 	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+
+	LIBSMAKE		= .\ BUILD_MODE=pf
+	LIBSBIN			= libpf.a
+
 else ifeq ($(BUILD_MODE),pf_test2)
 	NAME			:= pf_test2
 	CC_LD			= $(CC_CPP)
+	LD_FLAGS		+= -L. -lpf
+
 	SRCSBIN			= $(MKGEN_SRCSBIN_PF_TEST2) #gen by mkgen
 	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+
+	LIBSMAKE		= .\ BUILD_MODE=pf
+	LIBSBIN			= libpf.a
+
 else ifeq ($(BUILD_MODE),pf_test3)
 	NAME			:= pf_test3
 	CC_LD			= $(CC_CPP)
+	LD_FLAGS		+= -L. -lpf
+
 	SRCSBIN			= $(MKGEN_SRCSBIN_PF_TEST3) #gen by mkgen
 	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+
+	LIBSMAKE		= .\ BUILD_MODE=pf
+	LIBSBIN			= libpf.a
 # LD_FLAGS		+= -lboost_unit_test_framework
-else
-# NAME			:=
-# CC_LD			= $(CC_CPP)
-# LIBSBIN			=
-# LIBSMAKE		=
-# SRCSBIN			= $(MKGEN_SRCSBIN_DEFAULT) #gen by mkgen
-# INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
-# BASE_FLAGS		+= -O2
+
 endif
 
 
