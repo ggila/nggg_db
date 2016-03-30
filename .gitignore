@@ -10,8 +10,10 @@ pf_test3
 *.cmi
 *.exe
 *.cmx
+.*.sw[op]
 \#*\#
 \.\#*
 *\~
 .#*
 .DS_Store
+cscope.out
