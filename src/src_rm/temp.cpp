@@ -1,6 +1,0 @@
-
-
-static void truc(void)
-{
-
-}

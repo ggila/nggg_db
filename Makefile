@@ -10,11 +10,11 @@ MKGEN_INCLUDESDIRS		:= include
 # Obj files directory
 MKGEN_OBJDIR			:= build
 # Source files directories
-MKGEN_SRCSDIRS_PF		:= src/src_pf
-MKGEN_SRCSDIRS_PF_TEST1	:= src/src_pf_test1
-MKGEN_SRCSDIRS_PF_TEST2	:= src/src_pf_test2
-MKGEN_SRCSDIRS_PF_TEST3	:= src/src_pf_test3
-MKGEN_SRCSDIRS_RM		:= src/src_rm src/ftrb
+MKGEN_SRCSDIRS_PF		:= src/pf
+MKGEN_SRCSDIRS_PF_TEST1	:= src/pf_test1
+MKGEN_SRCSDIRS_PF_TEST2	:= src/pf_test2
+MKGEN_SRCSDIRS_PF_TEST3	:= src/pf_test3
+MKGEN_SRCSDIRS_RM		:= src/rm src/ftrb
 MKGEN_SRCSDIRS_SANDBOX	:= src/sandbox src/ftrb
 
 # mkgen -> MKGEN_SRCSBIN_* variables
