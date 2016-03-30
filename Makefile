@@ -14,8 +14,8 @@ MKGEN_SRCSDIRS_PF		:= src/src_pf
 MKGEN_SRCSDIRS_PF_TEST1	:= src/src_pf_test1
 MKGEN_SRCSDIRS_PF_TEST2	:= src/src_pf_test2
 MKGEN_SRCSDIRS_PF_TEST3	:= src/src_pf_test3
-MKGEN_SRCSDIRS_RM		:= src/src_rm
-MKGEN_SRCSDIRS_SANDBOX	:= src/sandbox
+MKGEN_SRCSDIRS_RM		:= src/src_rm src/ftrb
+MKGEN_SRCSDIRS_SANDBOX	:= src/sandbox src/ftrb
 
 # mkgen -> MKGEN_SRCSBIN_* variables
 # mkgen -> $(MKGEN_OBJDIR)/**/*.o rules
@@ -66,7 +66,7 @@ else ifeq ($(BUILD_MODE),rm)
 	LD_FLAGS		= rcs $@
 
 	SRCSBIN			= $(MKGEN_SRCSBIN_RM) #gen by mkgen
-	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
 
 	LIBSMAKE		= libft_cpp\ BASE_FLAGS="-m32"
 	LIBSBIN			= libft_cpp/libft.a

@@ -14,10 +14,13 @@ MKGEN_SRCSBIN_PF_TEST2 :=\
 MKGEN_SRCSBIN_PF_TEST3 :=\
 	build/src/src_pf_test3/pf_test3.o
 MKGEN_SRCSBIN_RM :=\
+	build/src/ftrb/error.o\
 	build/src/src_rm/temp.o
 MKGEN_SRCSBIN_SANDBOX :=\
+	build/src/ftrb/error.o\
 	build/src/sandbox/test.o
-build/src/sandbox/test.o: include/pf.h include/redbase.h src/sandbox/test.cpp | build/src/sandbox/
+build/src/ftrb/error.o: include/ftrb/error.hpp include/pf.h include/redbase.h src/ftrb/error.cpp | build/src/ftrb/
+build/src/sandbox/test.o: include/ftrb/error.hpp include/pf.h include/redbase.h src/sandbox/test.cpp | build/src/sandbox/
 build/src/src_pf/pf_buffermgr.o: include/linkedlist.h include/pf.h include/pf_buffermgr.h include/pf_hashtable.h include/pf_internal.h include/redbase.h include/statistics.h src/src_pf/pf_buffermgr.cc | build/src/src_pf/
 build/src/src_pf/pf_error.o: include/pf.h include/pf_internal.h include/redbase.h src/src_pf/pf_error.cc | build/src/src_pf/
 build/src/src_pf/pf_filehandle.o: include/pf.h include/pf_buffermgr.h include/pf_hashtable.h include/pf_internal.h include/redbase.h src/src_pf/pf_filehandle.cc | build/src/src_pf/
