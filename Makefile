@@ -4,7 +4,7 @@
 # Directories
 
 # Git submodule to init
-MODULES					:=
+MODULES					:= libft_cpp
 # include search path for .o dependencies
 MKGEN_INCLUDESDIRS		:= include
 # Obj files directory
@@ -15,6 +15,7 @@ MKGEN_SRCSDIRS_PF_TEST1	:= src/src_pf_test1
 MKGEN_SRCSDIRS_PF_TEST2	:= src/src_pf_test2
 MKGEN_SRCSDIRS_PF_TEST3	:= src/src_pf_test3
 MKGEN_SRCSDIRS_RM		:= src/src_rm
+MKGEN_SRCSDIRS_SANDBOX	:= src/sandbox
 
 # mkgen -> MKGEN_SRCSBIN_* variables
 # mkgen -> $(MKGEN_OBJDIR)/**/*.o rules
@@ -67,6 +68,9 @@ else ifeq ($(BUILD_MODE),rm)
 	SRCSBIN			= $(MKGEN_SRCSBIN_RM) #gen by mkgen
 	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
 
+	LIBSMAKE		= libft_cpp\ BASE_FLAGS="-m32"
+	LIBSBIN			= libft_cpp/libft.a
+
 else ifeq ($(BUILD_MODE),pf_test1)
 	NAME			:= pf_test1
 	CC_LD			= $(CC_CPP)
@@ -99,6 +103,17 @@ else ifeq ($(BUILD_MODE),pf_test3)
 
 	LIBSMAKE		= .\ BUILD_MODE=pf
 	LIBSBIN			= libpf.a
+
+else ifeq ($(BUILD_MODE),sandbox)
+	NAME			:= sandbox
+	CC_LD			= $(CC_CPP)
+	LD_FLAGS		+= -L. -lpf -lrm -Llibft_cpp -lft
+
+	SRCSBIN			= $(MKGEN_SRCSBIN_SANDBOX) #gen by mkgen
+	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
+
+	LIBSMAKE		= .\ BUILD_MODE=pf .\ BUILD_MODE=rm
+	LIBSBIN			= libpf.a librm.a
 # LD_FLAGS		+= -lboost_unit_test_framework
 
 endif

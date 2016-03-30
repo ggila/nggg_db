@@ -1,0 +1,3 @@
+[submodule "libft_cpp"]
+	path = libft_cpp
+	url = https://github.com/thisisnotabug/libft_cpp
