@@ -5,8 +5,8 @@
 //              Dallan Quass (quass@cs.stanford.edu)
 //
 
-#include "pf_internal.h"
-#include "pf_hashtable.h"
+#include "pf/pf_internal.h"
+#include "pf/pf_hashtable.h"
 
 //
 // PF_HashTable

@@ -8,7 +8,7 @@
 #ifndef PF_HASHTABLE_H
 #define PF_HASHTABLE_H
 
-#include "pf_internal.h"
+#include "pf/pf_internal.h"
 
 //
 // HashEntry - Hash table bucket entries

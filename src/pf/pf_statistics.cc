@@ -13,7 +13,7 @@
 #ifdef PF_STATS
 
 #include <iostream>
-#include "pf.h"
+#include "pf/pf.h"
 #include "statistics.h"
 
 using namespace std;

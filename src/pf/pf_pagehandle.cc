@@ -5,7 +5,7 @@
 //              Dallan Quass (quass@cs.stanford.edu)
 //
 
-#include "pf_internal.h"
+#include "pf/pf_internal.h"
 
 //
 // Defines

@@ -10,8 +10,8 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "pf_internal.h"
-#include "pf_buffermgr.h"
+#include "pf/pf_internal.h"
+#include "pf/pf_buffermgr.h"
 
 //
 // PF_Manager

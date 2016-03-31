@@ -19,9 +19,9 @@
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
-#include "pf.h"
-#include "pf_internal.h"
-#include "pf_hashtable.h"
+#include "pf/pf.h"
+#include "pf/pf_internal.h"
+#include "pf/pf_hashtable.h"
 
 using namespace std;
 

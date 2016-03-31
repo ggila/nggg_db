@@ -5,8 +5,7 @@
 //              Dallan Quass (quass@cs.stanford.edu)
 //              Jason McHugh (mchughj@cs.stanford.edu)
 //
-// 1997: When requesting a page from the buffer manager the page requested
-// is now promoted to the MRU slot.
+// 1997: When requesting a page from the buffer manager the page requested // is now promoted to the MRU slot.
 // 1998: Allow chunks from the buffer manager to not be associated with
 // a particular file.  Allows students to use main memory chunks that
 // are associated with (and limited by) the buffer.
@@ -15,8 +14,8 @@
 #ifndef PF_BUFFERMGR_H
 #define PF_BUFFERMGR_H
 
-#include "pf_internal.h"
-#include "pf_hashtable.h"
+#include "pf/pf_internal.h"
+#include "pf/pf_hashtable.h"
 
 //
 // Defines

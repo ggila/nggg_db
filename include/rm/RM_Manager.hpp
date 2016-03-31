@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:50:39 by ngoguey           #+#    #+#             //
-//   Updated: 2016/03/30 15:09:25 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/03/31 16:55:12 by ggilaber         ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,7 +15,7 @@
 
 // # include <>
 
-# include "pf.h"
+# include "pf/pf.h"
 
 class RM_FileHandle; // TODO: remove this line later
 
@@ -29,6 +29,8 @@ public:
 	/* CONSTRUCTION ***************** */
 	RM_Manager(PF_Manager &pfm);
 	~RM_Manager();
+
+	RM_Manager &GetInstance();  // This is a singleton
 
 	RM_Manager() = delete;
 	RM_Manager(RM_Manager const &src) = delete;
