@@ -6,11 +6,14 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:30:35 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 12:01:14 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/01 14:40:26 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <stdexcept>
+#include <string>
+#include <iostream> //TODO: remove
+#include <algorithm>
 
 #include "rm/rm_filescan.hpp"
 
@@ -50,32 +53,23 @@ RC rmi::CloseScan(void)
 
 /* INTERNAL ***************************************************************** */
 
+// Numbers overload
 template <typename T, template<typename> class Comparator>
-static bool compare(void const *lhs, void const *rhs)
+static bool compare(void const *lhs, void const *rhs, int)
 {
 	return Comparator<T>{}(
 		*reinterpret_cast<T const*>(lhs), *reinterpret_cast<T const*>(rhs));
 }
 
-// template <typename T>
-// // template <bool (*Fn)(int)>
-// static bool compare(void const *lhs, void const *rhs)
-// {
-// 	// return Comparator<T>{}(
-// 	// 	*reinterpret_cast<T const*>(lhs), *reinterpret_cast<T const*>(rhs));
-// 	return true;
-// }
+// String overload
+template <template<typename> class Comparator>
+static bool compare(void const *lhs, void const *rhs, int length)
+{
+	int const diff = ::strncmp(reinterpret_cast<char const *>(lhs),
+							   reinterpret_cast<char const *>(rhs), length);
 
-
-// int							mai(void)
-// {
-// 	compare<[](int len){return true;}>("", "");
-
-// 	// bool (*fn)(int) = [](int len){return true;};
-
-
-// 	return (0);
-// }
+	return Comparator<char>{}(diff, 0);
+}
 
 rmi::comp_map_t const rmi::comparators = /*static*/
 {
@@ -91,7 +85,12 @@ rmi::comp_map_t const rmi::comparators = /*static*/
 	{{FLOAT, LE_OP}, &compare<float, std::less_equal>},
 	{{FLOAT, GE_OP}, &compare<float, std::greater_equal>},
 	{{FLOAT, NE_OP}, &compare<float, std::not_equal_to>},
-
+	{{STRING, EQ_OP}, &compare<std::equal_to>},
+	{{STRING, LT_OP}, &compare<std::less>},
+	{{STRING, GT_OP}, &compare<std::greater>},
+	{{STRING, LE_OP}, &compare<std::less_equal>},
+	{{STRING, GE_OP}, &compare<std::greater_equal>},
+	{{STRING, NE_OP}, &compare<std::not_equal_to>},
 };
 
 }; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //

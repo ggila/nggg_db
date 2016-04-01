@@ -60,8 +60,11 @@ void	work(void)
 	return ;
 }
 
-int							main(void)
+
+
+int							min(void)
 {
+
 	FTPADB();
 	work();
 	FTPADE();

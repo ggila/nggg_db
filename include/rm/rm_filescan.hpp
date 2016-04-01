@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:16:27 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 11:09:12 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/01 14:13:16 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -53,7 +53,7 @@ public:
 private:
 	/* INTERNAL ********************* */
 	using comp_key_t = std::pair<AttrType, CompOp>;
-	using comp_fn_t = bool (*)(void const *lhs, void const *rhs);
+	using comp_fn_t = bool (*)(void const *, void const *, int);
 	struct HashKey {
 		std::size_t operator()(comp_key_t const &k) const {
 
