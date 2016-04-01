@@ -6,13 +6,13 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 07:01:51 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/01 09:19:43 by ggilaber         ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
 #include <stdexcept>
 
-#include "rm/RM_Manager.hpp"
+#include "rm/rm_manager.hpp"
 
 using rmm = RM_Manager;
 

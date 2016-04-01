@@ -15,7 +15,7 @@ MKGEN_SRCSBIN_PF_TEST3 :=\
 	build/src/pf_test3/pf_test3.o
 MKGEN_SRCSBIN_RM :=\
 	build/src/ftrb/error.o\
-	build/src/rm/RM_Manager.o
+	build/src/rm/rm_manager.o
 MKGEN_SRCSBIN_SANDBOX :=\
 	build/src/ftrb/error.o\
 	build/src/sandbox/test.o
@@ -31,5 +31,5 @@ build/src/pf/statistics.o: include/linkedlist.h include/statistics.h src/pf/stat
 build/src/pf_test1/pf_test1.o: include/linkedlist.h include/pf/pf.h include/pf/pf_hashtable.h include/pf/pf_internal.h include/redbase.h include/statistics.h src/pf_test1/pf_test1.cc | build/src/pf_test1/
 build/src/pf_test2/pf_test2.o: include/linkedlist.h include/pf/pf.h include/pf/pf_hashtable.h include/pf/pf_internal.h include/redbase.h include/statistics.h src/pf_test2/pf_test2.cc | build/src/pf_test2/
 build/src/pf_test3/pf_test3.o: include/pf/pf.h include/pf/pf_hashtable.h include/pf/pf_internal.h include/redbase.h src/pf_test3/pf_test3.cc | build/src/pf_test3/
-build/src/rm/RM_Manager.o: include/pf/pf.h include/redbase.h include/rm/RM_Manager.hpp src/rm/RM_Manager.cpp | build/src/rm/
+build/src/rm/rm_manager.o: include/pf/pf.h include/redbase.h include/rm/rm_manager.hpp src/rm/rm_manager.cpp | build/src/rm/
 build/src/sandbox/test.o: include/ftrb/error.hpp include/pf/pf.h include/redbase.h src/sandbox/test.cpp | build/src/sandbox/
