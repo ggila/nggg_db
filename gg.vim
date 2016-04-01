@@ -131,13 +131,15 @@ badd +1 include/pf/pf_buffermgr.h
 badd +1 include/pf/pf.h
 badd +1 include/pf/pf_internal.h
 badd +1 src/rm/RM_Manager.cpp
-badd +1 include/rm/rm.h
+badd +23 include/rm/rm.h
 badd +1 include/rm/RM_Manager.hpp
 badd +8 src/rm/rm_manager.cpp
 badd +85 include/rm/rm_manager.hpp
 badd +0 include/rm/rm_record.hpp
 badd +1 src/rm/rm_record.hpp
 badd +0 src/rm/rm_record.cpp
+badd +0 src/rm/rid.cpp
+badd +0 include/rm/rid.hpp
 args Makefile
 edit include/redbase.h
 set splitbelow splitright
@@ -861,12 +863,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 113 - ((34 * winheight(0) + 20) / 40)
+let s:l = 114 - ((35 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-113
-normal! 049l
+114
+normal! 048l
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -1081,12 +1083,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 60 - ((41 * winheight(0) + 40) / 81)
+let s:l = 283 - ((80 * winheight(0) + 40) / 81)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-60
-normal! 014l
+283
+normal! 0
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -1191,11 +1193,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 450 - ((61 * winheight(0) + 40) / 81)
+let s:l = 512 - ((80 * winheight(0) + 40) / 81)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-450
+512
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
@@ -1301,12 +1303,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 8 - ((7 * winheight(0) + 40) / 81)
+let s:l = 125 - ((80 * winheight(0) + 40) / 81)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 012l
+125
+normal! 0
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -1411,11 +1413,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 22 - ((14 * winheight(0) + 20) / 40)
+let s:l = 112 - ((39 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-22
+112
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
@@ -1521,12 +1523,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 32 - ((17 * winheight(0) + 20) / 40)
+let s:l = 980 - ((39 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-32
-normal! 05l
+980
+normal! 0
 lcd ~/_git/nggg_db
 wincmd w
 exe '1resize ' . ((&lines * 40 + 42) / 84)
@@ -1540,13 +1542,17 @@ exe '6resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 6resize ' . ((&columns * 72 + 182) / 364)
 exe '7resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 7resize ' . ((&columns * 72 + 182) / 364)
-tabedit ~/_git/nggg_db/include/rm/rm.h
+tabedit ~/_git/nggg_db/include/rm/rid.hpp
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
 wincmd _ | wincmd |
 vsplit
 2wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd w
 wincmd _ | wincmd |
 split
@@ -1561,17 +1567,20 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
+exe '1resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 1resize ' . ((&columns * 121 + 182) / 364)
 exe '2resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 2resize ' . ((&columns * 121 + 182) / 364)
 exe '3resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 3resize ' . ((&columns * 121 + 182) / 364)
 exe '4resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 4resize ' . ((&columns * 120 + 182) / 364)
+exe 'vert 4resize ' . ((&columns * 121 + 182) / 364)
 exe '5resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 5resize ' . ((&columns * 120 + 182) / 364)
+exe '6resize ' . ((&lines * 40 + 42) / 84)
+exe 'vert 6resize ' . ((&columns * 120 + 182) / 364)
 argglobal
-inoremap <buffer> ,print ft_printf(");f)i
+inoremap <buffer> ,print std::cout <<  << std::endl;2F i
 inoremap <buffer> ,str std::string
 inoremap <buffer> ,s std::
 setlocal autoindent
@@ -1599,8 +1608,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal noexpandtab
-if &filetype != 'c'
-setlocal filetype=c
+if &filetype != 'cpp'
+setlocal filetype=cpp
 endif
 setlocal foldcolumn=0
 setlocal foldenable
@@ -1657,8 +1666,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'c'
-setlocal syntax=c
+if &syntax != 'cpp'
+setlocal syntax=cpp
 endif
 setlocal tabstop=4
 setlocal tags=
@@ -1671,12 +1680,122 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 23 - ((22 * winheight(0) + 40) / 81)
+let s:l = 41 - ((36 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-23
-normal! 020l
+41
+normal! 031l
+lcd ~/_git/nggg_db
+wincmd w
+argglobal
+edit ~/_git/nggg_db/src/rm/rid.cpp
+inoremap <buffer> ,print std::cout <<  << std::endl;2F i
+inoremap <buffer> ,str std::string
+inoremap <buffer> ,s std::
+setlocal autoindent
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'cpp'
+setlocal filetype=cpp
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+set list
+setlocal list
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=ccomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'cpp'
+setlocal syntax=cpp
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 22 - ((17 * winheight(0) + 20) / 40)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+22
+normal! 0
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -1781,12 +1900,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 14 - ((13 * winheight(0) + 20) / 40)
+let s:l = 39 - ((38 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-14
-normal! 0
+39
+normal! 067l
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -1891,12 +2010,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 14 - ((13 * winheight(0) + 20) / 40)
+let s:l = 43 - ((25 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-14
-normal! 0
+43
+normal! 09l
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -2001,11 +2120,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 2 - ((1 * winheight(0) + 20) / 40)
+let s:l = 39 - ((20 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
+39
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
@@ -2111,24 +2230,26 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 20) / 40)
+let s:l = 9 - ((8 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+9
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
-2wincmd w
+exe '1resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 1resize ' . ((&columns * 121 + 182) / 364)
 exe '2resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 2resize ' . ((&columns * 121 + 182) / 364)
 exe '3resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 3resize ' . ((&columns * 121 + 182) / 364)
 exe '4resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 4resize ' . ((&columns * 120 + 182) / 364)
+exe 'vert 4resize ' . ((&columns * 121 + 182) / 364)
 exe '5resize ' . ((&lines * 40 + 42) / 84)
 exe 'vert 5resize ' . ((&columns * 120 + 182) / 364)
+exe '6resize ' . ((&lines * 40 + 42) / 84)
+exe 'vert 6resize ' . ((&columns * 120 + 182) / 364)
 tabnext 3
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
