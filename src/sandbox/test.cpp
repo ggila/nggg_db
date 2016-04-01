@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include "pf/pf.h"
-#include "rm/rm_iterator.hpp"
+#include "rm/rm_filescan.hpp"
 
 #include "ft/assert.hpp"
 #include "ft/utils.hpp"
