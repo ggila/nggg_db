@@ -6,12 +6,15 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:26 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/01 09:16:49 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/01 09:37:17 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RID_H
 # define RID_H
+
+# include "pf/pf.h"
+# include "rm/rm.h"
 
 /*
 ** The RID class defines record identifier objects. A record identifier
@@ -33,7 +36,7 @@ public:
 	~RID();                                     // Destructor
 	RID(PageNum pageNum,                        // Construct RID from page and
 		SlotNum slotNum);                       //   slot number;
-                                                
+
 	RC GetPageNum (PageNum &pageNum) const;     // Return page number
 	RC GetSlotNum (SlotNum &slotNum) const;     // Return slot number
 };

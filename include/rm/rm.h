@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/03/31 18:45:33 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/01 09:37:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ struct RM_FileHdr {
 	int firstFreeRec;	// first free page in the linked list
 };
 
+typedef int SlotNum;
 
 # define RM_RECORDPERPAGE  (START_RM_WARM + 0) // recordSize too big
 

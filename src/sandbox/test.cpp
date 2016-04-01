@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include "pf/pf.h"
+#include "rm/rm_iterator.hpp"
+
 #include "ft/assert.hpp"
 #include "ft/utils.hpp"
 #include "ft/padformat.hpp"
