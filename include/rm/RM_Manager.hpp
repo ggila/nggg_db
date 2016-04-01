@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:50:39 by ngoguey           #+#    #+#             //
-/*   Updated: 2016/03/31 16:55:12 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/01 06:41:18 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,12 +25,15 @@ private:
 	/* ATTRIBUTES ******************* */
 	PF_Manager &_pfm;
 
-public:
+private:
 	/* CONSTRUCTION ***************** */
+	static RM_Manager *_instance;
 	RM_Manager(PF_Manager &pfm);
 	~RM_Manager();
 
-	RM_Manager &GetInstance();  // This is a singleton
+public:
+	RM_Manager &GetInstance(PF_Manager &pfm);
+	RM_Manager &GetInstance(void);
 
 	RM_Manager() = delete;
 	RM_Manager(RM_Manager const &src) = delete;
