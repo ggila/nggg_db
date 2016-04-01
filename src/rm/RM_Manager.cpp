@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 06:46:45 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/01 07:01:51 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -55,11 +55,11 @@ RC rmm::CreateFile(const char *fileName, int recordSize)
 	// check recordSize
 	if (recordSize > PF_PAGE_SIZE / MIN_RECORD_PER_PAGE)
 		return RN_RECORDPERPAGE;
-
+*/
 	// open file with PF_Manager
 	if ((err = _pfm.CreateFile(fileName)) != 0)
 		return err;
-
+/*
 	//set PF Header
 //   PF_FileHdr *hdr = (PF_FileHdr*)hdrBuf;
    hdr->firstFree = PF_PAGE_LIST_END;
