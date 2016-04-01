@@ -6,14 +6,13 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:30:35 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 14:40:26 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/01 14:49:42 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <stdexcept>
-#include <string>
-#include <iostream> //TODO: remove
-#include <algorithm>
+#include <functional>
+#include <cstring>
 
 #include "rm/rm_filescan.hpp"
 

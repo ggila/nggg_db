@@ -62,7 +62,7 @@ void	work(void)
 
 
 
-int							min(void)
+int							main(void)
 {
 
 	FTPADB();
