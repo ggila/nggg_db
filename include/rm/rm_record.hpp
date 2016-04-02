@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/01 15:16:16 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/02 16:21:12 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,4 @@ public:
 	// Set pData to point to the record's contents
 
 	RC GetRid(RID &rid) const;       // Get the record id
-
-	RC SetRecord(char const *pageData, RID const &rid, int recordSize);
 };
