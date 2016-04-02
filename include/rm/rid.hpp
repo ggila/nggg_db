@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:26 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/01 15:19:06 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/02 15:40:18 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ public:
 	~RID();                                     // Destructor
 	RID(PageNum pageNum,                        // Construct RID from page and
 		SlotNum slotNum);                       //   slot number;
-//	RID(RID const &rhs);                        // Copy constructor
+	RID(RID const &rhs);                        // Copy constructor
 
-//	RID &operator=(RID const &rhs);
+	RID &operator=(RID const &rhs);
 
 	PageNum GetPageNum() const;     // Return page number
 	SlotNum GetSlotNum() const;     // Return slot number
