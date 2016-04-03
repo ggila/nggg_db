@@ -6,12 +6,12 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/03 09:03:55 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/03 10:35:35 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rm/rid.hpp"
-#include <string.h>
+#include <string>
 
 /*
 ** The RM_Record class defines record objects. To materialize a record,

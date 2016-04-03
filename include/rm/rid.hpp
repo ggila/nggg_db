@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:26 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/02 15:40:18 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/03 09:49:41 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ public:
 
 	PageNum GetPageNum() const;     // Return page number
 	SlotNum GetSlotNum() const;     // Return slot number
+	std::string toStr() const;
 };
 
 #endif
