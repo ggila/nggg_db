@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:50:31 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/02 16:42:59 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/03 09:04:36 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 using rmr = RM_Record;
 
-
-rmr::RM_Record() : _rid(-1, -1) {
-	_pData = new char[recordSize];
-}
+rmr::RM_Record() : _rid(-1, -1), _rSize(0), _pData(NULL) {}
 
 rmr::~RM_Record() {
-	delete [] _pData;
+	if (_pData)
+		delete [] _pData;
 }
 
 RC rmr::GetData(char *&pData) const {
@@ -29,7 +27,39 @@ RC rmr::GetData(char *&pData) const {
 	return pData == NULL ? RM_RECNONINIT : 0; 
 }
 
-RC GetRid(RID &rid) const {
-	pData = _pData;
-	return pData == NULL ? RM_RECNONINIT : 0; 
+RC rmr::GetRid(RID &rid) const {
+	rid = _rid;
+	return _rid.GetPageNum() == -1 ? RM_RECNONINIT : 0; 
+}
+
+RC rmr::_SetRid(RID const &rid) {
+	_rid = rid;
+	return 0;
+}
+
+RC rmr::_SetSize(int const rSize)
+{
+	if (rSize <= 0)
+		return RM_BADRECSIZE;
+	_rSize = rSize;
+	return 0;
+}
+
+RC rmr::_SetData(char const *&pData)
+{
+	if (pData == NULL)
+		return RM_NULLDATA;
+	_pData = new char[_rSize];
+	memcpy(_pData, pData, _rSize);
+	return (0);
+}
+
+RC rmr::_SetData(char const *&pData, int const rSize)
+{
+	int err = 0;
+
+	err = this->_SetSize(rSize);
+	if (err)
+		return err;
+	return (this->_SetData(pData));
 }
