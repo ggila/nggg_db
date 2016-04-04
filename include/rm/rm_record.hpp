@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/04 13:32:17 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/04 14:22:34 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ public:
 	RM_Record &operator=(RM_Record const &rhs) = delete;
 	RM_Record &operator=(RM_Record &&rhs) = delete;
 
+	// From subject:
 	RC GetData(char *&pData) const;
+
+	// From subject:
+	// Get the record id
+	RC GetRid(RID &rid) const;
+
+	// NOT From subject:
 	// Set pData to point to the record's contents
-	RC GetRid(RID &rid) const;       // Get the record id
 	RC SetRecord(char const *&pData, RID const &rid, int const rSize);
 
 	std::string toStr() const;
