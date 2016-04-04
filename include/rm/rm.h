@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/04 14:11:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/04 14:19:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,34 @@ struct RM_FileHdr {
 };
 
 /*
+ * RM_Manager::CreateFile
+ *   TODO
+ * *************************************
+ * RM_Manager::DestroyFile
+ *   PF_Manager::DestroyFile
+ * *************************************
  * RM_Manager::OpenFile
  *   CTOR PF_FileHandle
  *   PF_Manager::OpenFile
  *   RM_FileHandle
  *     MOVEOP PF_FileHandle
-*/
-
-/*
+ * *************************************
  * RM_Manager::CloseFile
  *   RM_FileHandle::CloseFile
- *     PF_Manager::CloseFile (Function ptr and this parameter curryfied)
+ *     PF_Manager::CloseFile ('Function ptr' and 'this'
+ *                            parameters previously curryfied)
 */
 
 typedef int SlotNum;
 
-# define RM_RECORDPERPAGE  (START_RM_WARN + 0) // recordSize too big
-# define RM_NULLDATA       (START_RM_WARN + 1) // passing null data to rm_rec
-# define RM_BADRECSIZE     (START_RM_WARN + 2) // bad record size in rm_rec
-# define RM_RECNONINIT     (START_RM_WARN + 3) // rm_rec used initialized
+enum e_rm_error_code {
+	RM_RECORDPERPAGE = START_RM_WARN, // recordSize too big
+	RM_NULLDATA, // passing null data to rm_rec
+	RM_BADRECSIZE, // bad record size in rm_rec
+	RM_RECNONINIT, // rm_rec used initialized
+	RM_FILEHANDLENOINIT, // RM_FileHandle not init
+	RM_FILEHANDLEALREADYINIT, // RM_FileHandle init
+};
+
 
 #endif

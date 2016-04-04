@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/04 14:08:22 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/04 14:20:46 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -49,6 +49,8 @@ RM_Manager &rmm::GetInstance(void)
 
 /* EXPOSED ****************************************************************** */
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter" // TODO: remove
 RC rmm::CreateFile(const char *fileName, int recordSize)
 {
 	int err;
@@ -73,6 +75,7 @@ RC rmm::CreateFile(const char *fileName, int recordSize)
 */
 	return err;
 }
+#pragma clang diagnostic pop
 
 RC rmm::DestroyFile(const char *fileName)
 {
