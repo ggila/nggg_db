@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/03 08:58:56 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/04 14:11:14 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ struct RM_FileHdr {
 	int recordSize;
 	int firstFreeRec;	// first free page in the linked list
 };
+
+/*
+ * RM_Manager::OpenFile
+ *   CTOR PF_FileHandle
+ *   PF_Manager::OpenFile
+ *   RM_FileHandle
+ *     MOVEOP PF_FileHandle
+*/
+
+/*
+ * RM_Manager::CloseFile
+ *   RM_FileHandle::CloseFile
+ *     PF_Manager::CloseFile (Function ptr and this parameter curryfied)
+*/
 
 typedef int SlotNum;
 

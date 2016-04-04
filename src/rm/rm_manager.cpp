@@ -6,13 +6,14 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-/*   Updated: 2016/04/01 09:19:43 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/04 14:08:22 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <stdexcept>
 
 #include "rm/rm_manager.hpp"
+#include "rm/rm_filehandle.hpp"
 
 using rmm = RM_Manager;
 
@@ -75,7 +76,30 @@ RC rmm::CreateFile(const char *fileName, int recordSize)
 
 RC rmm::DestroyFile(const char *fileName)
 {
-	return _pfm.DestroyFile(fileName);;
+	return _pfm.DestroyFile(fileName);
+}
+
+RC rmm::OpenFile(const char *fileName, RM_FileHandle &fileHandle)
+{
+	int err;
+	PF_FileHandle pffh;
+
+	err = _pfm.OpenFile(fileName, pffh);
+	if (err)
+		return err;
+	err = fileHandle.SetFile(fileName, std::move(pffh));
+	if (err)
+	{
+		(void)_pfm.CloseFile(pffh);
+		return err;
+	}
+	return 0;
+}
+
+RC rmm::CloseFile(RM_FileHandle &fileHandle)
+{
+	return fileHandle.CloseFile(
+		std::bind(&PF_Manager::CloseFile, &_pfm, std::placeholders::_1));
 }
 
 /* INTERNAL ***************************************************************** */
