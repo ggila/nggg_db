@@ -48,7 +48,7 @@ struct RM_FileHdr {
 
 typedef int SlotNum;
 
-enum e_rm_error_code {
+enum e_rm_warning_code {
 	RM_RECORDPERPAGE = START_RM_WARN, // recordSize too big
 	RM_NULLDATA, // passing null data to rm_rec
 	RM_BADRECSIZE, // bad record size in rm_rec
@@ -58,5 +58,8 @@ enum e_rm_error_code {
 	RM_FILEHANDLEALREADYINIT, // RM_FileHandle init
 };
 
+enum e_rm_error_code {
+	RM_ = START_RM_ERR // - nbError + 1
+}
 
 #endif

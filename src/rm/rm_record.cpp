@@ -35,6 +35,8 @@ RC rmr::GetRid(RID &rid) const {
 }
 
 RC rmr::_SetRid(RID const &rid) {
+	if (rid.GetPageNum() < 0 || rid.GetSlotNum())
+		return RM_BADRID;
 	_rid = rid;
 	return 0;
 }
@@ -60,9 +62,8 @@ RC rmr::SetRecord(char const *&pData, RID const &rid, int const rSize)
 {
 	int err;
 
-	if (rid.GetPageNum() < 0 || rid.GetSlotNum())
-		return RM_BADRID;
-	_SetRid(rid);
+	if ((err = _SetRid(rid)) != 0)
+		return err;
 	if ((err = _SetSize(rSize)) != 0)
 		return err;
 	if ((err = _SetData(pData)) != 0)
