@@ -6,12 +6,14 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:50:31 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/04 09:59:54 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/04 13:34:40 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "rm/rm_record.hpp"
+#include "ft/utils.hpp"
+#include <string>
 
 using rmr = RM_Record;
 
@@ -54,12 +56,20 @@ RC rmr::_SetData(char const *&pData)
 	return (0);
 }
 
-RC rmr::_SetData(char const *&pData, int const rSize)
+RC rmr::SetRecord(char const *&pData, RID const &rid, int const rSize)
 {
-	int err = 0;
+	int err;
 
-	err = this->_SetSize(rSize);
-	if (err)
+	if (rid.GetPageNum() < 0 || rid.GetSlotNum())
+		return RM_BADRID;
+	_SetRid(rid);
+	if ((err = _SetSize(rSize)) != 0)
 		return err;
-	return (this->_SetData(pData));
+	if ((err = _SetData(pData)) != 0)
+		return err;
+	return 0;
+}
+
+std::string rmr::toStr() const {
+	return ft::f("RM_Record(%, %, %)", _rid.toStr(), _rSize, _pData);
 }

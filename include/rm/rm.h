@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/03 08:58:56 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/04 13:24:36 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ typedef int SlotNum;
 # define RM_NULLDATA       (START_RM_WARN + 1) // passing null data to rm_rec
 # define RM_BADRECSIZE     (START_RM_WARN + 2) // bad record size in rm_rec
 # define RM_RECNONINIT     (START_RM_WARN + 3) // rm_rec used initialized
+# define RM_BADRID         (START_RM_WARN + 4) // rid with negative value
 
 #endif

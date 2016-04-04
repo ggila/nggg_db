@@ -6,11 +6,12 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:05 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/04 09:43:53 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/04 12:44:48 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rm/rid.hpp"
+#include "ft/utils.hpp"
 
 RID::RID(PageNum pageNum, SlotNum slotNum)
 	: _pageNum(pageNum), _slotNum(slotNum) {}
@@ -32,4 +33,8 @@ PageNum RID::GetPageNum() const {
 
 SlotNum RID::GetSlotNum() const {
 	return _slotNum;
+}
+
+std::string RID::toStr() const {
+	return ft::f("RID(%, %)", this->_pageNum, this->_slotNum);
 }

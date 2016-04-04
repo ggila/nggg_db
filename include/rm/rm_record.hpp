@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/04 09:59:18 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/04 13:32:17 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ private:
 	char *_pData;
 
 	RC _SetData(char const *&pData);
-	RC _SetData(char const *&pData, int const rSize);
 	RC _SetRid(RID const &rid);
 	RC _SetSize(int const rSize);
 
@@ -47,4 +46,6 @@ public:
 	// Set pData to point to the record's contents
 	RC GetRid(RID &rid) const;       // Get the record id
 	RC SetRecord(char const *&pData, RID const &rid, int const rSize);
+
+	std::string toStr() const;
 };
