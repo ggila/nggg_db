@@ -6,12 +6,14 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:26 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/03 09:49:41 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/04 09:41:29 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RID_H
 # define RID_H
+
+# include <string>
 
 # include "pf/pf.h"
 # include "rm/rm.h"

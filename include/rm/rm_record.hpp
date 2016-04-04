@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/03 10:35:35 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/04 09:59:18 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ private:
 public:
 	RM_Record();                     // Constructor
 	~RM_Record();                     // Destructor
+
+	RM_Record(RM_Record const &src) = delete;
+	RM_Record(RM_Record &&src) = delete;
+	RM_Record &operator=(RM_Record const &rhs) = delete;
+	RM_Record &operator=(RM_Record &&rhs) = delete;
 
 	RC GetData(char *&pData) const;
 	// Set pData to point to the record's contents

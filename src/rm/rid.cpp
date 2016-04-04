@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:05 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/02 15:44:16 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/04 09:43:53 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ RID::RID(RID const &rhs)
 
 RID &RID::operator=(RID const &rhs)
 {
-	_pageNum = rhs.GetPageNum();
-	_slotNum = rhs.GetSlotNum();
+	_pageNum = rhs._pageNum;
+	_slotNum = rhs._slotNum;
 
 	return (*this);
 }
