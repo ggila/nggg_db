@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/04 14:22:34 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/05 10:17:13 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ private:
 	RID _rid;
 	int _rSize;
 	char *_pData;
+	bool _set;
 
 	RC _SetData(char const *&pData);
 	RC _SetRid(RID const &rid);
@@ -51,7 +52,9 @@ public:
 
 	// NOT From subject:
 	// Set pData to point to the record's contents
-	RC SetRecord(char const *&pData, RID const &rid, int const rSize);
+	RC SetRecord(char const *pData, RID const &rid, int rSize);
+	// return true if instance is set, false otherwise
+	RC IsSet() const;
 
 	std::string toStr() const;
 };

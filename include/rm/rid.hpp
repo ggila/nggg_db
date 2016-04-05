@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:26 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/04 12:38:11 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/05 10:54:41 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # include "pf/pf.h"
 # include "rm/rm.h"
 
+# define NULLPAGE -1
+# define NULLSLOT -1
+
 /*
 ** The RID class defines record identifier objects. A record identifier
 ** uniquely identifies a record within a given file, based on the record's
-** page number in the file and slot number within that page. You may wonder
-** why this class name does not begin with RM.
+** page number in the file and slot number within that page.
 */
 
 class RID

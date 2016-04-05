@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:50:31 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/04 13:34:40 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/05 10:20:56 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 using rmr = RM_Record;
 
-rmr::RM_Record() : _rid(-1, -1), _rSize(0), _pData(nullptr) {}
+rmr::RM_Record() : _rid(-1, -1), _rSize(0), _pData(nullptr), _set(false) {}
 
 rmr::~RM_Record() {
 	if (_pData)
@@ -35,7 +35,7 @@ RC rmr::GetRid(RID &rid) const {
 }
 
 RC rmr::_SetRid(RID const &rid) {
-	if (rid.GetPageNum() < 0 || rid.GetSlotNum())
+	if (rid.GetPageNum() < 0 || rid.GetSlotNum() < 0)
 		return RM_BADRID;
 	_rid = rid;
 	return 0;
@@ -58,7 +58,11 @@ RC rmr::_SetData(char const *&pData)
 	return (0);
 }
 
-RC rmr::SetRecord(char const *&pData, RID const &rid, int const rSize)
+RC rmr::IsSet() const {
+	return _set;
+}
+
+RC rmr::SetRecord(char const *pData, RID const &rid, int rSize)
 {
 	int err;
 
@@ -68,9 +72,12 @@ RC rmr::SetRecord(char const *&pData, RID const &rid, int const rSize)
 		return err;
 	if ((err = _SetData(pData)) != 0)
 		return err;
+	_set = true;
 	return 0;
 }
 
 std::string rmr::toStr() const {
+	if (_set == false)
+		return "RM_Record(not set)";
 	return ft::f("RM_Record(%, %, %)", _rid.toStr(), _rSize, _pData);
 }
