@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/04 14:19:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/05 09:20:07 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ enum e_rm_warning_code {
 
 enum e_rm_error_code {
 	RM_ = START_RM_ERR // - nbError + 1
-}
+};
 
 #endif
