@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/04 14:20:46 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 08:09:29 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -54,6 +54,8 @@ RM_Manager &rmm::GetInstance(void)
 RC rmm::CreateFile(const char *fileName, int recordSize)
 {
 	int err;
+
+	//TODO: Write data to file header
 /*
 	// check recordSize
 	if (recordSize > PF_PAGE_SIZE / MIN_RECORD_PER_PAGE)

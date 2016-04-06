@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:50:31 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/05 10:20:56 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/06 08:14:15 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include "rm/rm_record.hpp"
 #include "ft/utils.hpp"
 #include <string>
+
+// TODO: class should be smaller, _set redundant with _pData, save _rSize??
+
 
 using rmr = RM_Record;
 

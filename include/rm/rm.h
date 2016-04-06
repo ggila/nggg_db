@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/05 09:20:07 by ggilaber         ###   ########.fr       */
+/*   Updated: 2016/04/06 08:18:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,43 @@ struct RM_FileHdr {
 };
 
 /*
- * RM_Manager::CreateFile
+ * RM_Manager::CreateFile()
  *   TODO
  * *************************************
- * RM_Manager::DestroyFile
- *   PF_Manager::DestroyFile
+ * RM_Manager::DestroyFile()
+ *   PF_Manager::DestroyFile()
  * *************************************
- * RM_Manager::OpenFile
- *   CTOR PF_FileHandle
- *   PF_Manager::OpenFile
- *   RM_FileHandle
- *     MOVEOP PF_FileHandle
+ * RM_Manager::OpenFile()
+ *   CTOR PF_FileHandle()
+ *   PF_Manager::OpenFile()
+ *   RM_FileHandle()
+ *     MOVEOP PF_FileHandle()
  * *************************************
- * RM_Manager::CloseFile
- *   RM_FileHandle::CloseFile
- *     PF_Manager::CloseFile ('Function ptr' and 'this'
- *                            parameters previously curryfied)
+ * RM_Manager::CloseFile()
+ *   RM_FileHandle::CloseFile()
+ *     PF_Manager::CloseFile() ('Function ptr' and 'this'
+ *                               parameters previously curryfied)
 */
+
+/*
+ * RM_FileHandle::GetRec()
+ *   RID::GetPageNum()
+ *   PF_FileHandle::GetThisPage()
+ *   PF_PageHandle::GetData()
+ *   RM_Record::SetRecord()
+ * *************************************
+ * RM_FileHandle::InsertRec()
+ *   TODO
+ * *************************************
+ * RM_FileHandle::DeleteRec()
+ *   TODO
+ * *************************************
+ * RM_FileHandle::UpdateRec()
+ *   TODO
+ * *************************************
+ * RM_FileHandle::ForcePages()
+ *   TODO
+ */
 
 typedef int SlotNum;
 
@@ -59,7 +79,7 @@ enum e_rm_warning_code {
 };
 
 enum e_rm_error_code {
-	RM_ = START_RM_ERR // - nbError + 1
+	RM_ = END_RM_ERR //  using END_ for enum incrementation
 };
 
 #endif
