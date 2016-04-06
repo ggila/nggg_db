@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 10:28:50 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/04 14:08:13 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 08:12:38 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -26,6 +26,7 @@ private:
 	bool _init;
 	std::string _fileName;
 	PF_FileHandle _pffh;
+	int _recordSize;
 
 public:
 

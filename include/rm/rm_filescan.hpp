@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:16:27 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 14:13:16 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 06:52:41 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -19,9 +19,6 @@
 # include "redbase.h" //CompOp, AttrType, ClientHint
 
 # define RM_EOF nullptr
-
-namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
 class RM_FileHandle; // TODO: remove later
 class RM_Record; // TODO: remove later
@@ -66,11 +63,6 @@ private:
 	static comp_map_t const comparators;
 
 };
-
-
-}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-
 
 
 #endif /* *************************************************** RM_FILESCAN_HPP */

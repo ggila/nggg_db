@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/05 10:17:13 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/06 09:33:15 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ private:
 	RID _rid;
 	int _rSize;
 	char *_pData;
-	bool _set;
 
 	RC _SetData(char const *&pData);
 	RC _SetRid(RID const &rid);

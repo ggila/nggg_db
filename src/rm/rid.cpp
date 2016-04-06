@@ -6,12 +6,15 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:05 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/04 12:44:48 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/06 09:11:18 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rm/rid.hpp"
 #include "ft/utils.hpp"
+
+RID::RID()
+	: _pageNum(-1), _slotNum(-1) {}
 
 RID::RID(PageNum pageNum, SlotNum slotNum)
 	: _pageNum(pageNum), _slotNum(slotNum) {}
