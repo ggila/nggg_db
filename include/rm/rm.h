@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/06 09:17:26 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/06 10:11:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ struct RM_PageHdr {
  *   RM_Record::SetRecord()
  * *************************************
  * RM_FileHandle::InsertRec()
- *   TODO
+ *   DONE
  * *************************************
  * RM_FileHandle::DeleteRec()
- *   TODO
+ *   DONE
  * *************************************
  * RM_FileHandle::UpdateRec()
- *   TODO
+ *   DONE
  * *************************************
  * RM_FileHandle::ForcePages()
- *   TODO
+ *   PF_FileHandle::ForcePages()
  */
 
 typedef int SlotNum;

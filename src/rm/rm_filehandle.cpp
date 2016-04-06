@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 11:08:20 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 09:32:55 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 10:11:19 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -46,18 +46,51 @@ RC rmfh::GetRec(const RID &rid, RM_Record &rec) const
 	return err;
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-parameter" // TODO: remove
 RC rmfh::InsertRec(const char *pData, RID &rid)
 {
-	return 0;
+	int err;
+	PageNum pageNum;
+	PF_PageHandle pfph;
+	char *dst;
+
+	if (!_init)
+		return RM_FILEHANDLENOINIT;
+	pageNum = rid.GetPageNum();
+	err = _pffh.GetThisPage(pageNum, pfph);
+	if (err)
+		return err;
+	err = pfph.GetData(std::ref(dst));
+	if (err)
+		return err;
+	(void)pData;
+	// TODO: assert bit is not set
+	// TODO: set bit
+	// TODO: memcpy record from pData to dst
+	err = _pffh.MarkDirty(pageNum);
+	return err;
 }
 
 RC rmfh::DeleteRec(const RID &rid)
 {
-	return 0;
+	int err;
+	PageNum pageNum;
+	PF_PageHandle pfph;
+	char *dst;
+
+	if (!_init)
+		return RM_FILEHANDLENOINIT;
+	pageNum = rid.GetPageNum();
+	err = _pffh.GetThisPage(pageNum, pfph);
+	if (err)
+		return err;
+	err = pfph.GetData(std::ref(dst));
+	if (err)
+		return err;
+	// TODO: assert bit is set
+	// TODO: set bit
+	err = _pffh.MarkDirty(pageNum);
+	return err;
 }
-#pragma clang diagnostic pop
 
 RC rmfh::UpdateRec(const RM_Record &rec)
 {
@@ -82,7 +115,7 @@ RC rmfh::UpdateRec(const RM_Record &rec)
 	if (err)
 		return err;
 	// TODO: memcpy record from src to dst
-	// TODO: set bit in page hdr?
+	// TODO: assert bit is set
 	err = _pffh.MarkDirty(pageNum);
 	return err;
 }
