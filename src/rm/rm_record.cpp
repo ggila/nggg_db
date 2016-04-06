@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:50:31 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/06 08:14:15 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 09:20:38 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 #include "ft/utils.hpp"
 #include <string>
 
-// TODO: class should be smaller, _set redundant with _pData, save _rSize??
-
+// TODO: class should be smaller, save _rSize??
 
 using rmr = RM_Record;
 
-rmr::RM_Record() : _rid(-1, -1), _rSize(0), _pData(nullptr), _set(false) {}
+rmr::RM_Record() : _rid(), _rSize(0), _pData(nullptr) {}
 
 rmr::~RM_Record() {
 	if (_pData)
@@ -62,7 +61,7 @@ RC rmr::_SetData(char const *&pData)
 }
 
 RC rmr::IsSet() const {
-	return _set;
+	return _pData != nullptr;
 }
 
 RC rmr::SetRecord(char const *pData, RID const &rid, int rSize)
@@ -75,12 +74,11 @@ RC rmr::SetRecord(char const *pData, RID const &rid, int rSize)
 		return err;
 	if ((err = _SetData(pData)) != 0)
 		return err;
-	_set = true;
 	return 0;
 }
 
 std::string rmr::toStr() const {
-	if (_set == false)
+	if (_pData == nullptr)
 		return "RM_Record(not set)";
 	return ft::f("RM_Record(%, %, %)", _rid.toStr(), _rSize, _pData);
 }

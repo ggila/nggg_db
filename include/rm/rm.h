@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/06 08:18:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/06 09:17:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ struct RM_FileHdr {
 //   int firstFree;     // first free page in the linked list
 //   int numPages;      // # of pages in the file
 	int recordSize;
-	int firstFreeRec;	// first free page in the linked list
+	/* int firstFreeRec;	// first free page in the linked list */
+};
+
+struct RM_PageHdr {
+
+
 };
 
 /*

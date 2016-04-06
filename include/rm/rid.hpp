@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:26 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/05 10:54:41 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/06 09:10:58 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 
 # include "pf/pf.h"
 # include "rm/rm.h"
-
-# define NULLPAGE -1
-# define NULLSLOT -1
 
 /*
 ** The RID class defines record identifier objects. A record identifier
@@ -36,7 +33,7 @@ private:
 
 public:
 	/* CONSTRUCTION ***************** */
-	RID() = delete;                             // Default constructor
+	RID();                             // Default constructor
 //	~RID();                                     // Destructor
 	RID(PageNum pageNum,                        // Construct RID from page and
 		SlotNum slotNum);                       //   slot number;
