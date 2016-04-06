@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:30:35 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 14:49:42 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 06:52:28 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -16,81 +16,89 @@
 
 #include "rm/rm_filescan.hpp"
 
-namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-
-using rmi = rm::FileScan;
+using rmfs = FileScan;
 
 /* CONSTRUCTION ************************************************************* */
-rmi::FileScan()
+rmfs::FileScan()
 {
 
 }
 
-rmi::~FileScan()
+rmfs::~FileScan()
 {
 
 }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter" // TODO: remove
 
 /* EXPOSED ****************************************************************** */
-RC rmi::OpenScan(const RM_FileHandle &fileHandle,
+RC rmfs::OpenScan(const RM_FileHandle &fileHandle,
 				 AttrType attrType, int attrLength, int attrOffset,
 				 CompOp compOp, void const *value, ClientHint pinHint)
 {
 
+	return 0;
 }
 
-RC rmi::GetNextRec(RM_Record &rec)
+RC rmfs::GetNextRec(RM_Record &rec)
 {
 
+	return 0;
 }
 
-RC rmi::CloseScan(void)
+RC rmfs::CloseScan(void)
 {
 
+	return 0;
 }
+
+#pragma clang diagnostic pop
 
 /* INTERNAL ***************************************************************** */
 
 // Numbers overload
 template <typename T, template<typename> class Comparator>
-static bool compare(void const *lhs, void const *rhs, int)
+struct Comparison
 {
-	return Comparator<T>{}(
-		*reinterpret_cast<T const*>(lhs), *reinterpret_cast<T const*>(rhs));
-}
+	static bool of_pointers(void const *lhs, void const *rhs, int) {
+
+		return Comparator<T>{}(
+			*reinterpret_cast<T const*>(lhs), *reinterpret_cast<T const*>(rhs));
+	}
+};
 
 // String overload
 template <template<typename> class Comparator>
-static bool compare(void const *lhs, void const *rhs, int length)
+struct Comparison<char*, Comparator>
 {
-	int const diff = ::strncmp(reinterpret_cast<char const *>(lhs),
-							   reinterpret_cast<char const *>(rhs), length);
+	static bool of_pointers(void const *lhs, void const *rhs, int length) {
 
-	return Comparator<char>{}(diff, 0);
-}
+		int const diff = ::strncmp(reinterpret_cast<char const *>(lhs),
+								   reinterpret_cast<char const *>(rhs), length);
 
-rmi::comp_map_t const rmi::comparators = /*static*/
-{
-	{{INT, EQ_OP}, &compare<int32_t, std::equal_to>},
-	{{INT, LT_OP}, &compare<int32_t, std::less>},
-	{{INT, GT_OP}, &compare<int32_t, std::greater>},
-	{{INT, LE_OP}, &compare<int32_t, std::less_equal>},
-	{{INT, GE_OP}, &compare<int32_t, std::greater_equal>},
-	{{INT, NE_OP}, &compare<int32_t, std::not_equal_to>},
-	{{FLOAT, EQ_OP}, &compare<float, std::equal_to>},
-	{{FLOAT, LT_OP}, &compare<float, std::less>},
-	{{FLOAT, GT_OP}, &compare<float, std::greater>},
-	{{FLOAT, LE_OP}, &compare<float, std::less_equal>},
-	{{FLOAT, GE_OP}, &compare<float, std::greater_equal>},
-	{{FLOAT, NE_OP}, &compare<float, std::not_equal_to>},
-	{{STRING, EQ_OP}, &compare<std::equal_to>},
-	{{STRING, LT_OP}, &compare<std::less>},
-	{{STRING, GT_OP}, &compare<std::greater>},
-	{{STRING, LE_OP}, &compare<std::less_equal>},
-	{{STRING, GE_OP}, &compare<std::greater_equal>},
-	{{STRING, NE_OP}, &compare<std::not_equal_to>},
+		return Comparator<char>{}(diff, 0);
+	}
 };
 
-}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+rmfs::comp_map_t const rmfs::comparators = /*static*/
+{
+	{{INT, EQ_OP}, &Comparison<int32_t, std::equal_to>::of_pointers},
+	{{INT, LT_OP}, &Comparison<int32_t, std::less>::of_pointers},
+	{{INT, GT_OP}, &Comparison<int32_t, std::greater>::of_pointers},
+	{{INT, LE_OP}, &Comparison<int32_t, std::less_equal>::of_pointers},
+	{{INT, GE_OP}, &Comparison<int32_t, std::greater_equal>::of_pointers},
+	{{INT, NE_OP}, &Comparison<int32_t, std::not_equal_to>::of_pointers},
+	{{FLOAT, EQ_OP}, &Comparison<float, std::equal_to>::of_pointers},
+	{{FLOAT, LT_OP}, &Comparison<float, std::less>::of_pointers},
+	{{FLOAT, GT_OP}, &Comparison<float, std::greater>::of_pointers},
+	{{FLOAT, LE_OP}, &Comparison<float, std::less_equal>::of_pointers},
+	{{FLOAT, GE_OP}, &Comparison<float, std::greater_equal>::of_pointers},
+	{{FLOAT, NE_OP}, &Comparison<float, std::not_equal_to>::of_pointers},
+	{{STRING, EQ_OP}, &Comparison<char*, std::equal_to>::of_pointers},
+	{{STRING, LT_OP}, &Comparison<char*, std::less>::of_pointers},
+	{{STRING, GT_OP}, &Comparison<char*, std::greater>::of_pointers},
+	{{STRING, LE_OP}, &Comparison<char*, std::less_equal>::of_pointers},
+	{{STRING, GE_OP}, &Comparison<char*, std::greater_equal>::of_pointers},
+	{{STRING, NE_OP}, &Comparison<char*, std::not_equal_to>::of_pointers},
+};
