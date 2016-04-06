@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/06 10:11:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/06 13:47:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ enum e_rm_warning_code {
 	RM_BADRID, // rid with negative value
 	RM_FILEHANDLENOINIT, // RM_FileHandle not init
 	RM_FILEHANDLEALREADYINIT, // RM_FileHandle init
+	RM_ALREADYSCANNING, // RM_FileScan::OpenScan without close
+	RM_NOTSCANNING, // RM_FileScan::CloseScan without open
+	RM_BADSCANARGUMENTS, // RM_FileScan::OpenScan without close
 };
 
 enum e_rm_error_code {

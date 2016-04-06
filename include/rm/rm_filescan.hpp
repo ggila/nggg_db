@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:16:27 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 06:52:41 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 13:54:42 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -23,22 +23,29 @@
 class RM_FileHandle; // TODO: remove later
 class RM_Record; // TODO: remove later
 
-class FileScan
+class RM_FileScan
 {
 private:
 	/* ATTRIBUTES ******************* */
+	using comp_fn_t = bool (*)(void const *, void const *, int);
 
+	bool _scanning;
+	int _offset;
+	int _length;
+	comp_fn_t _comp;
+	char const *_ref;
+	RM_FileHandle const *_rmfh;
 
 public:
 
 	/* CONSTRUCTION ***************** */
-	FileScan();
-	~FileScan();
+	RM_FileScan();
+	~RM_FileScan();
 
-	FileScan(FileScan const &src) = delete;
-	FileScan(FileScan &&src) = delete;
-	FileScan &operator=(FileScan const &rhs) = delete;
-	FileScan &operator=(FileScan &&rhs) = delete;
+	RM_FileScan(RM_FileScan const &src) = delete;
+	RM_FileScan(RM_FileScan &&src) = delete;
+	RM_FileScan &operator=(RM_FileScan const &rhs) = delete;
+	RM_FileScan &operator=(RM_FileScan &&rhs) = delete;
 
 	/* EXPOSED ********************** */
 	RC OpenScan(const RM_FileHandle &fileHandle,
@@ -50,11 +57,10 @@ public:
 private:
 	/* INTERNAL ********************* */
 	using comp_key_t = std::pair<AttrType, CompOp>;
-	using comp_fn_t = bool (*)(void const *, void const *, int);
 	struct HashKey {
 		std::size_t operator()(comp_key_t const &k) const {
 
-			return k.first << (sizeof(comp_key_t) / 2) + k.second;
+			return k.first << (sizeof(comp_key_t) / 2) + k.second; //TODO: Improve hash function
 		}
 	};
 
