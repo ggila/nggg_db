@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:16:27 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 13:54:42 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/06 14:01:20 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -60,7 +60,7 @@ private:
 	struct HashKey {
 		std::size_t operator()(comp_key_t const &k) const {
 
-			return k.first << (sizeof(comp_key_t) / 2) + k.second; //TODO: Improve hash function
+			return k.first << (sizeof(std::size_t) / 2) + k.second; //TODO: Improve hash function
 		}
 	};
 
