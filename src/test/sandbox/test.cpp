@@ -48,13 +48,52 @@ public:
 };
 
 
+
 void	work(void)
 {
 	ManagerWrapper	mw;
-	// int				err;
+	PF_PageHandle pfph;
+	int				err;
+	PageNum pn;
 	char *ptr;
 
+	std::cout << "" << std::endl;
+	err = mw.fh.AllocatePage(pfph);
+	FTASSERT(err == 0, ftrb::errToStr(err));
 
+	err = pfph.GetPageNum(pn);
+	FTASSERT(err == 0, ftrb::errToStr(err));
+
+	err = mw.fh.UnpinPage(pn);
+	FTASSERT(err == 0, ftrb::errToStr(err));
+
+	std::cout << "ALLOCED PAGE " << pn << std::endl;
+	std::cout << "LOOP" << std::endl;
+
+	for (int i = 0; i <= 6; i++)
+	{
+		std::cout << "index " << i << std::endl;
+		err = mw.fh.GetThisPage(i, pfph);
+		FTASSERT(err == 0, ftrb::errToStr(err));
+
+		err = pfph.GetPageNum(pn);
+		FTASSERT(err == 0, ftrb::errToStr(err));
+
+		err = mw.fh.UnpinPage(pn);
+		FTASSERT(err == 0, ftrb::errToStr(err));
+
+		// err = mw.fh.UnpinPage(pn);
+		// FTASSERT(err == 0, ftrb::errToStr(err));
+
+		std::cout << "" << std::endl;
+	}
+
+
+	err = mw.fh.DisposePage(1);
+	FTASSERT(err == 0, ftrb::errToStr(err));
+
+	err = mw.fh.DisposePage(3);
+	FTASSERT(err == 0, ftrb::errToStr(err));
 
 	mw.m.PrintBuffer();
 	return ;

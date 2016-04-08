@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:30:35 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 13:58:47 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 12:56:55 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,17 +15,23 @@
 #include <cstring>
 
 #include "rm/rm_filescan.hpp"
+#include "rm/rm_record.hpp"
 #include "rm/rm.h"
 
-using rmfs = RM_FileScan;
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+
+using rmfs = FileScan;
 
 /* CONSTRUCTION ************************************************************* */
-rmfs::RM_FileScan() : _scanning(false)
+rmfs::FileScan()
+	: _scanning(false)
 {
 
 }
 
-rmfs::~RM_FileScan()
+rmfs::~FileScan()
 {
 	if (_scanning)
 		delete [] _ref;
@@ -35,7 +41,7 @@ rmfs::~RM_FileScan()
 #pragma clang diagnostic ignored "-Wunused-parameter" // TODO: remove
 
 /* EXPOSED ****************************************************************** */
-RC rmfs::OpenScan(const RM_FileHandle &fileHandle, AttrType attrType,
+RC rmfs::openScan(const FileHandle &fileHandle, AttrType attrType,
 				  int attrLength, int attrOffset, CompOp compOp,
 				  void const *value, ClientHint pinHint/*= NO_HINT*/)
 {
@@ -60,16 +66,16 @@ RC rmfs::OpenScan(const RM_FileHandle &fileHandle, AttrType attrType,
 	return 0;
 }
 
-RC rmfs::GetNextRec(RM_Record &rec) //TODO
+std::pair<RC, Record> rmfs::getNextRec(void) //TODO
 {
 	char *_pData;
 
-	_pData = nullptr;
-	_comp(_ref, _pData + _offset, _length);
-	return 0;
+	// _pData = nullptr;
+	// _comp(_ref, _pData + _offset, _length);
+	return {};
 }
 
-RC rmfs::CloseScan(void)
+RC rmfs::closeScan(void)
 {
 	if (!_scanning)
 		return RM_NOTSCANNING;
@@ -135,3 +141,7 @@ rmfs::comp_map_t const rmfs::comparators = /*static*/
 	{{FLOAT, NO_OP}, &no_comp},
 	{{STRING, NO_OP}, &no_comp},
 };
+
+
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //

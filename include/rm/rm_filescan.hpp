@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:16:27 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 14:01:20 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:43:58 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -20,10 +20,14 @@
 
 # define RM_EOF nullptr
 
-class RM_FileHandle; // TODO: remove later
-class RM_Record; // TODO: remove later
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
-class RM_FileScan
+
+class FileHandle; // TODO: remove later
+class Record; // TODO: remove later
+
+class FileScan
 {
 private:
 	/* ATTRIBUTES ******************* */
@@ -34,25 +38,25 @@ private:
 	int _length;
 	comp_fn_t _comp;
 	char const *_ref;
-	RM_FileHandle const *_rmfh;
+	FileHandle const *_rmfh;
 
 public:
 
 	/* CONSTRUCTION ***************** */
-	RM_FileScan();
-	~RM_FileScan();
+	FileScan();
+	~FileScan();
 
-	RM_FileScan(RM_FileScan const &src) = delete;
-	RM_FileScan(RM_FileScan &&src) = delete;
-	RM_FileScan &operator=(RM_FileScan const &rhs) = delete;
-	RM_FileScan &operator=(RM_FileScan &&rhs) = delete;
+	FileScan(FileScan const &src) = delete;
+	FileScan(FileScan &&src) = delete;
+	FileScan &operator=(FileScan const &rhs) = delete;
+	FileScan &operator=(FileScan &&rhs) = delete;
 
 	/* EXPOSED ********************** */
-	RC OpenScan(const RM_FileHandle &fileHandle,
+	RC openScan(FileHandle const &fileHandle,
 				AttrType attrType, int attrLength, int attrOffset,
 				CompOp compOp, void const *value, ClientHint pinHint = NO_HINT);
-	RC GetNextRec(RM_Record &rec);
-	RC CloseScan(void);
+	std::pair<RC, Record> getNextRec(void);
+	RC closeScan(void);
 
 private:
 	/* INTERNAL ********************* */
@@ -71,4 +75,6 @@ private:
 };
 
 
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 #endif /* *************************************************** RM_FILESCAN_HPP */

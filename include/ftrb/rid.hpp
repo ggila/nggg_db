@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:26 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/06 09:10:58 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 12:43:33 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ private:
 public:
 	/* CONSTRUCTION ***************** */
 	RID();                             // Default constructor
-//	~RID();                                     // Destructor
+	~RID();                                     // Destructor
 	RID(PageNum pageNum,                        // Construct RID from page and
 		SlotNum slotNum);                       //   slot number;
 	RID(RID const &rhs);                        // Copy constructor
 	RID &operator=(RID const &rhs);
 
-
-	PageNum GetPageNum() const;     // Return page number
-	SlotNum GetSlotNum() const;     // Return slot number
+	PageNum getPageNum() const;     // Return page number
+	SlotNum getSlotNum() const;     // Return slot number
 	std::string toStr() const;
 };
 

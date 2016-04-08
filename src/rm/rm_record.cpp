@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:50:31 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/08 09:40:03 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 13:02:36 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,53 @@
 #include "ft/assert.hpp"
 #include <string>
 
-using rmr = RM_Record;
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
-rmr::RM_Record() : _rid(), _rSize(0), _pData(nullptr) {}
 
-rmr::~RM_Record() {
+using rmr = Record;
+
+rmr::Record()
+	: _pData(nullptr)
+{}
+
+rmr::Record(Record &&src)
+	: _rid(src._rid), _rSize(src._rSize), _pData(src._pData)
+{
+	src._pData = nullptr;
+}
+
+Record &rmr::operator=(Record &&rhs)
+{
+	_rid = rhs._rid;
+	_rSize = rhs._rSize;
+	_pData = rhs._pData;
+	return *this;
+}
+
+rmr::~Record() {
 	if (_pData != nullptr)
 		delete [] _pData;
 }
 
-RC rmr::GetData(char *&pData) const {
-	pData = reinterpret_cast<char *>(_pData);
-	return pData == nullptr ? RM_RECNONINIT : 0;
+std::pair<RC, char*> rmr::getData(void) const {
+	return {_pData == nullptr ? RM_RECNONINIT : 0
+			, reinterpret_cast<char *>(_pData)};
 }
 
-RC rmr::GetRid(RID &rid) const {
-	rid = _rid;
-	return _rid.GetPageNum() == -1 ? RM_RECNONINIT : 0;
+std::pair<RC, RID> rmr::getRid(void) const {
+	return {_rid.getPageNum() == -1 ? RM_RECNONINIT : 0
+			, _rid};
 }
 
-RC rmr::_SetRid(RID const &rid) {
-	if (rid.GetPageNum() < 0 || rid.GetSlotNum() < 0)
+RC rmr::_setRid(RID const &rid) {
+	if (rid.getPageNum() < 0 || rid.getSlotNum() < 0)
 		return RM_BADRID;
 	_rid = rid;
 	return 0;
 }
 
-RC rmr::_SetSize(int const rSize)
+RC rmr::_setSize(int const rSize)
 {
 	if (rSize <= 0)
 		return RM_BADRECSIZE;
@@ -49,7 +69,7 @@ RC rmr::_SetSize(int const rSize)
 	return 0;
 }
 
-RC rmr::_SetData(char const *&pData)
+RC rmr::_setData(char const *&pData)
 {
 	if (pData == nullptr)
 		return RM_NULLDATA;
@@ -58,31 +78,31 @@ RC rmr::_SetData(char const *&pData)
 	return (0);
 }
 
-RC rmr::IsSet() const {
+RC rmr::isSet() const {
 	return _pData != nullptr;
 }
 
-RC rmr::SetRecord(char const *pData, RID const &rid, int rSize) //TODO: keep rsize in this?
+RC rmr::setRecord(char const *pData, RID const &rid, int rSize) //TODO: keep rsize in this?
 {
 	int err;
 
-	if ((err = _SetRid(rid)) != 0)
+	if ((err = _setRid(rid)) != 0)
 		return err;
-	if ((err = _SetSize(rSize)) != 0)
+	if ((err = _setSize(rSize)) != 0)
 		return err;
-	if ((err = _SetData(pData)) != 0)
+	if ((err = _setData(pData)) != 0)
 		return err;
 	return 0;
 }
 
 std::string rmr::toStr() const {
 	if (_pData == nullptr)
-		return "RM_Record(not set)";
-	return ft::f("RM_Record(%, %, %)",
+		return "Record(not set)";
+	return ft::f("Record(%, %, %)",
 				 _rid.toStr(), _rSize, static_cast<void*>(_pData));
 }
 
-using rmrm = RM_Record::Metrics;
+using rmrm = Record::Metrics;
 
 // Couln'd find a better way to compute recPerPage
 rmrm::Metrics(int recSize)
@@ -102,3 +122,7 @@ rmrm::Metrics(int recSize)
 	firstRecOffset = PF_PAGE_SIZE - this->recSize * this->recPerPage;
 	return ;
 }
+
+
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
