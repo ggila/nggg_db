@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:50:39 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 12:51:39 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 14:56:53 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -85,6 +85,27 @@ public:
 
 private:
 	/* INTERNAL ********************* */
+
+	class InitFileHeader
+	{
+	private:
+		PF_Manager &_pfm;
+		PF_FileHandle _pffh;
+		RC _initErr;
+
+	public:
+		InitFileHeader(PF_Manager &rmm, char const *fileName);
+		~InitFileHeader();
+
+		RC operator()(int recordSize);
+
+	private:
+		InitFileHeader() = delete;
+		InitFileHeader(InitFileHeader const &src) = delete;
+		InitFileHeader(InitFileHeader &&src) = delete;
+		InitFileHeader &operator=(InitFileHeader const &rhs) = delete;
+		InitFileHeader &operator=(InitFileHeader &&rhs) = delete;
+	};
 
 };
 

@@ -6,12 +6,13 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 13:00:56 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 14:59:41 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <stdexcept>
 
+#include "ft/assert.hpp"
 #include "rm/rm_manager.hpp"
 #include "rm/rm_filehandle.hpp"
 
@@ -57,7 +58,8 @@ Manager &rmm::getInstance(void)
 #pragma clang diagnostic ignored "-Wunused-parameter" // TODO: remove
 RC rmm::createFile(const char *fileName, int recordSize)
 {
-	int err;
+
+    int err;
 	Record::Metrics recMetrics;
 
 	if (recordSize <= 0)
@@ -67,26 +69,20 @@ RC rmm::createFile(const char *fileName, int recordSize)
 		return RM_BADRECORDSIZE;
 	if ((err = _pfm.CreateFile(fileName)) != 0)
 		return err;
-	PF_FileHandle pffh;
-
-
-	err = _pfm.OpenFile(fileName, pffh);
-
-
-
-	(void)_pfm.CloseFile(pffh);
+	err = InitFileHeader{_pfm, fileName}(recordSize);
+	return err;
 
 //TODO: Write data to file header
 /*
-	//set PF Header
+//set PF Header
 //   PF_FileHdr *hdr = (PF_FileHdr*)hdrBuf;
-   hdr->firstFree = PF_PAGE_LIST_END;
-   hdr->numPages = 1;
+hdr->firstFree = PF_PAGE_LIST_END;
+hdr->numPages = 1;
 
-	// Set RM Header
+// Set RM Header
 //   FileHdr *hdr = (FileHdr*)hdrBuf;
-   hdr->firstFree = PF_PAGE_LIST_END;
-   hdr->numPages = 1;
+hdr->firstFree = PF_PAGE_LIST_END;
+hdr->numPages = 1;
 */
 	return err;
 }
@@ -123,6 +119,46 @@ RC rmm::closeFile(FileHandle &fileHandle)
 
 /* INTERNAL ***************************************************************** */
 
+rmm::InitFileHeader::InitFileHeader(PF_Manager &pfm, char const *fileName)
+    : _pfm(pfm), _initErr(0)
+{
+	_initErr = pfm.OpenFile(fileName, _pffh);
+	return ;
+}
+
+RC rmm::InitFileHeader::operator()(int recordSize)
+{
+	RM_FileHdr const fh[1] = {{.recordSize = recordSize,
+							   .firstFreeRec = RM_NO_FREE_REC,
+							   .numPages = 0}};
+	PF_PageHandle pfph;
+	int err;
+	char *pData;
+	PageNum pn;
+
+	if (_initErr)
+		return _initErr;
+	err = _pffh.AllocatePage(pfph);
+	if (err)
+		return err;
+	FTASSERT((pfph.GetPageNum(pn), pn == 0));
+	err = pfph.GetData(pData);
+	if (err)
+		return err;
+	err = pfph.GetData(pData);
+	if (err)
+		return err;
+	::memcpy(pData, fh, sizeof(RM_FileHdr));
+	err = _pffh.UnpinPage(0);
+	return err;
+}
+
+rmm::InitFileHeader::~InitFileHeader()
+{
+	if (!_initErr)
+		(void)_pfm.CloseFile(_pffh);
+	return ;
+}
 
 }; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //

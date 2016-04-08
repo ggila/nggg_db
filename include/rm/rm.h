@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/08 11:37:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/08 14:57:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "redbase.h"
 
 # define MIN_RECORD_PER_PAGE 10
+# define RM_NO_FREE_REC -1
 
 //
 // RM_FileHdr: Header structure for files
@@ -25,6 +26,7 @@ struct RM_FileHdr {
 //   int numPages;      // # of pages in the file
 	int recordSize;
 	int firstFreeRec;	// first free page in the linked list
+	int numPages;
 };
 
 struct RM_PageHdr {
