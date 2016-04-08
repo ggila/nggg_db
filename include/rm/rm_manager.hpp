@@ -6,7 +6,7 @@ e// ************************************************************************** /
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:50:39 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 11:36:11 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:47:24 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,9 +15,13 @@ e// ************************************************************************** /
 
 # include "pf/pf.h"
 
-class RM_FileHandle; // TODO: remove this line later
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
-class RM_Manager
+
+class FileHandle; // TODO: remove this line later
+
+class Manager
 {
 private:
 	/* ATTRIBUTES ******************* */
@@ -25,19 +29,19 @@ private:
 
 private:
 	/* CONSTRUCTION ***************** */
-	static RM_Manager *_instance;
-	RM_Manager(PF_Manager &pfm);
-	~RM_Manager();
+	static Manager *_instance;
+	Manager(PF_Manager &pfm);
+	~Manager();
 
 public:
-	RM_Manager &GetInstance(PF_Manager &pfm);
-	RM_Manager &GetInstance(void);
+	Manager &getInstance(PF_Manager &pfm);
+	Manager &getInstance(void);
 
-	RM_Manager() = delete;
-	RM_Manager(RM_Manager const &src) = delete;
-	RM_Manager(RM_Manager &&src) = delete;
-	RM_Manager &operator=(RM_Manager const &rhs) = delete;
-	RM_Manager &operator=(RM_Manager &&rhs) = delete;
+	Manager() = delete;
+	Manager(Manager const &src) = delete;
+	Manager(Manager &&src) = delete;
+	Manager &operator=(Manager const &rhs) = delete;
+	Manager &operator=(Manager &&rhs) = delete;
 
 	/* EXPOSED ********************** */
 	/** This method should call PF_Manager::CreateFile to create a paged file
@@ -70,16 +74,19 @@ public:
 	 ** RM component. You may also assume that DestroyFile will never be called
 	 ** on an open file.
 	 **/
-	std::pair<RC, RM_FileHandle> openFile(const char *fileName);
+	std::pair<RC, FileHandle> openFile(const char *fileName);
 
 	/** This method should close the open file instance referred to by
 	 ** fileHandle by calling PF_Manager:: CloseFile.
 	 **/
-	RC closeFile(RM_FileHandle &fileHandle);
+	RC closeFile(FileHandle &fileHandle);
 
 private:
 	/* INTERNAL ********************* */
 
 };
 
+
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 #endif /* **************************************************** RM_MANAGER_HPP */

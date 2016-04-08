@@ -6,29 +6,33 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 11:08:20 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 09:41:27 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:53:05 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include "ft/assert.hpp"
 #include "rm/rm_filehandle.hpp"
 
-using rmfh = RM_FileHandle;
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+
+using rmfh = FileHandle;
 
 /* CONSTRUCTION ************************************************************* */
-rmfh::RM_FileHandle() : _init(), _fileName(), _pffh()
+rmfh::FileHandle() : _init(), _fileName(), _pffh()
 {
 
 }
 
-rmfh::~RM_FileHandle()
+rmfh::~FileHandle()
 {
 
 }
 
 /* EXPOSED ****************************************************************** */
 
-RC rmfh::GetRec(const RID &rid, RM_Record &rec) const
+RC rmfh::GetRec(const RID &rid, Record &rec) const
 {
 	PF_PageHandle pfph;
 	int err;
@@ -92,7 +96,7 @@ RC rmfh::DeleteRec(const RID &rid)
 	return err;
 }
 
-RC rmfh::UpdateRec(const RM_Record &rec)
+RC rmfh::UpdateRec(const Record &rec)
 {
 	int err;
 	RID rid;
@@ -130,7 +134,7 @@ RC rmfh::SetFile(char const *fileName, PF_FileHandle &&rhs)
 	if (_init)
 		return RM_FILEHANDLEALREADYINIT;
 	//TODO: Read info from file header such as recordsize
-	_recMetrics = RM_Record::Metrics(42);
+	_recMetrics = Record::Metrics(42);
 	_init = true;
 	_fileName = fileName;
 	_pffh = rhs;
@@ -146,3 +150,7 @@ RC rmfh::CloseFile(std::function<RC (PF_FileHandle&)> const &f)
 
 
 /* INTERNAL ***************************************************************** */
+
+
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //

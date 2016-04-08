@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 10:28:50 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 11:33:25 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:43:49 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -19,30 +19,34 @@
 # include "rm/rid.hpp"
 # include "rm/rm_record.hpp"
 
-class RM_FileHandle
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+
+class FileHandle
 {
 private:
 	/* ATTRIBUTES ******************* */
 	bool _init;
 	std::string _fileName;
 	PF_FileHandle _pffh;
-	RM_Record::Metrics _recMetrics;
+	Record::Metrics _recMetrics;
 
 public:
 
 	/* CONSTRUCTION ***************** */
-	RM_FileHandle();
-	~RM_FileHandle();
+	FileHandle();
+	~FileHandle();
 
-	RM_FileHandle(RM_FileHandle const &src) = delete;
-	RM_FileHandle(RM_FileHandle &&src) = delete;
-	RM_FileHandle &operator=(RM_FileHandle const &rhs) = delete;
-	RM_FileHandle &operator=(RM_FileHandle &&rhs) = delete;
+	FileHandle(FileHandle const &src) = delete;
+	FileHandle(FileHandle &&src) = delete;
+	FileHandle &operator=(FileHandle const &rhs) = delete;
+	FileHandle &operator=(FileHandle &&rhs) = delete;
 
     /* EXPOSED ********************** */
 	// From subject:
 	// Get a record
-	std::pair<RC, RM_Record> getRec(RID const &rid) const;
+	std::pair<RC, Record> getRec(RID const &rid) const;
 
 	// From subject:
 	// Insert a new record, return record id
@@ -54,7 +58,7 @@ public:
 
 	// From subject:
 	// Update a record
-	RC updateRec(RM_Record const &rec);
+	RC updateRec(Record const &rec);
 
 	// From subject:
 	// Write dirty page(s) to disk
@@ -70,4 +74,7 @@ public:
 private:
 };
 
+
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 #endif /* ************************************************* RM_FILEHANDLE_HPP */

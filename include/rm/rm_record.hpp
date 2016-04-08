@@ -1,14 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rm_record.hpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/08 11:36:47 by ngoguey          ###   ########.fr       //
-/*                                                                            */
-/* ************************************************************************** */
+// ************************************************************************** //
+//                                                                            //
+//                                                        :::      ::::::::   //
+//   rm_record.hpp                                      :+:      :+:    :+:   //
+//                                                    +:+ +:+         +:+     //
+//   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
+//                                                +#+#+#+#+#+   +#+           //
+//   Created: 2016/04/08 11:44:58 by ngoguey           #+#    #+#             //
+//   Updated: 2016/04/08 11:45:17 by ngoguey          ###   ########.fr       //
+//                                                                            //
+// ************************************************************************** //
+
+#ifndef RM_RECORD_HPP
+# define RM_RECORD_HPP
 
 #include "rm/rid.hpp"
 #include <string>
@@ -21,7 +24,11 @@
 ** records in the buffer pool itself.
 */
 
-class RM_Record
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+
+class Record
 {
 private:
 	/* ATTRIBUTES ******************* */
@@ -34,13 +41,13 @@ private:
 	RC _SetSize(int const rSize);
 
 public:
-	RM_Record();                     // Constructor
-	~RM_Record();                     // Destructor
+	Record();                     // Constructor
+	~Record();                     // Destructor
 
-	RM_Record(RM_Record const &src) = delete;
-	RM_Record(RM_Record &&src) = delete;
-	RM_Record &operator=(RM_Record const &rhs) = delete;
-	RM_Record &operator=(RM_Record &&rhs) = delete;
+	Record(Record const &src) = delete;
+	Record(Record &&src) = delete;
+	Record &operator=(Record const &rhs) = delete;
+	Record &operator=(Record &&rhs) = delete;
 
 	// From subject:
 	std::pair<RC, char*> getData(void) const;
@@ -77,3 +84,8 @@ public:
 		int firstRecOffset;
 	};
 };
+
+
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+#endif /* ***************************************************** RM_RECORD_HPP */

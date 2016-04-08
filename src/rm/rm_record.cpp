@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:50:31 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/08 09:40:03 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:52:32 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,27 @@
 #include "ft/assert.hpp"
 #include <string>
 
-using rmr = RM_Record;
+namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+{ // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
-rmr::RM_Record() : _rid(), _rSize(0), _pData(nullptr) {}
 
-rmr::~RM_Record() {
+using rmr = Record;
+
+rmr::Record() : _rid(), _rSize(0), _pData(nullptr) {}
+
+rmr::~Record() {
 	if (_pData != nullptr)
 		delete [] _pData;
 }
 
 RC rmr::GetData(char *&pData) const {
 	pData = reinterpret_cast<char *>(_pData);
-	return pData == nullptr ? RM_RECNONINIT : 0;
+	return pData == nullptr ? RECNONINIT : 0;
 }
 
 RC rmr::GetRid(RID &rid) const {
 	rid = _rid;
-	return _rid.GetPageNum() == -1 ? RM_RECNONINIT : 0;
+	return _rid.GetPageNum() == -1 ? RECNONINIT : 0;
 }
 
 RC rmr::_SetRid(RID const &rid) {
@@ -77,12 +81,12 @@ RC rmr::SetRecord(char const *pData, RID const &rid, int rSize) //TODO: keep rsi
 
 std::string rmr::toStr() const {
 	if (_pData == nullptr)
-		return "RM_Record(not set)";
-	return ft::f("RM_Record(%, %, %)",
+		return "Record(not set)";
+	return ft::f("Record(%, %, %)",
 				 _rid.toStr(), _rSize, static_cast<void*>(_pData));
 }
 
-using rmrm = RM_Record::Metrics;
+using rmrm = Record::Metrics;
 
 // Couln'd find a better way to compute recPerPage
 rmrm::Metrics(int recSize)
@@ -102,3 +106,7 @@ rmrm::Metrics(int recSize)
 	firstRecOffset = PF_PAGE_SIZE - this->recSize * this->recPerPage;
 	return ;
 }
+
+
+}; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
