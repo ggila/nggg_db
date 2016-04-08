@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/06 09:33:15 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 09:41:50 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ private:
 	/* ATTRIBUTES ******************* */
 	RID _rid;
 	int _rSize;
-	char *_pData;
+	long *_pData;
 
 	RC _SetData(char const *&pData);
 	RC _SetRid(RID const &rid);
@@ -52,8 +52,28 @@ public:
 	// NOT From subject:
 	// Set pData to point to the record's contents
 	RC SetRecord(char const *pData, RID const &rid, int rSize);
+
+	// NOT From subject:
 	// return true if instance is set, false otherwise
 	RC IsSet() const;
 
+	// NOT From subject:
 	std::string toStr() const;
+
+	// NOT From subject:
+	struct Metrics
+	{
+		Metrics(int recSize);
+
+		Metrics() = default;
+		~Metrics() = default;
+		Metrics(Metrics const &src) = default;
+		Metrics(Metrics &&src) = default;
+		Metrics &operator=(Metrics const &rhs) = default;
+		Metrics &operator=(Metrics &&rhs) = default;
+
+		int recSize;
+		int recPerPage;
+		int firstRecOffset;
+	};
 };

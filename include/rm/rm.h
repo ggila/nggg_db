@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/06 13:47:26 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/08 08:24:51 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ struct RM_PageHdr {
 
 /*
  * RM_Manager::CreateFile()
- *   TODO
  * *************************************
  * RM_Manager::DestroyFile()
  *   PF_Manager::DestroyFile()

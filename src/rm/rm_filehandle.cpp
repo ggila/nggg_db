@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 11:08:20 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 10:11:19 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 09:41:27 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -16,7 +16,7 @@
 using rmfh = RM_FileHandle;
 
 /* CONSTRUCTION ************************************************************* */
-rmfh::RM_FileHandle() : _init(), _fileName(), _pffh(), _recordSize()
+rmfh::RM_FileHandle() : _init(), _fileName(), _pffh()
 {
 
 }
@@ -42,7 +42,7 @@ RC rmfh::GetRec(const RID &rid, RM_Record &rec) const
 	err = pfph.GetData(std::ref(dat));
 	if (err)
 		return err;
-	err = rec.SetRecord(dat, rid, _recordSize);
+	err = rec.SetRecord(dat, rid, _recMetrics.recSize);
 	return err;
 }
 
@@ -130,7 +130,7 @@ RC rmfh::SetFile(char const *fileName, PF_FileHandle &&rhs)
 	if (_init)
 		return RM_FILEHANDLEALREADYINIT;
 	//TODO: Read info from file header such as recordsize
-	_recordSize = 42;
+	_recMetrics = RM_Record::Metrics(42);
 	_init = true;
 	_fileName = fileName;
 	_pffh = rhs;
