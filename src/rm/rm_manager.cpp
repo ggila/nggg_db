@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 11:54:01 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 13:00:56 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -36,7 +36,7 @@ rmm::~Manager()
 	return ;
 }
 
-Manager &rmm::GetInstance(PF_Manager &pfm)
+Manager &rmm::getInstance(PF_Manager &pfm)
 {
 	if (rmm::_instance != NULL)
 		throw std::runtime_error("RM_Manager instance already initialized");
@@ -44,7 +44,7 @@ Manager &rmm::GetInstance(PF_Manager &pfm)
 	return *rmm::_instance;
 }
 
-Manager &rmm::GetInstance(void)
+Manager &rmm::getInstance(void)
 {
 	if (rmm::_instance == NULL)
 		throw std::runtime_error("RM_Manager instance not initialized");
@@ -55,7 +55,7 @@ Manager &rmm::GetInstance(void)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter" // TODO: remove
-RC rmm::CreateFile(const char *fileName, int recordSize)
+RC rmm::createFile(const char *fileName, int recordSize)
 {
 	int err;
 	Record::Metrics recMetrics;
@@ -92,31 +92,32 @@ RC rmm::CreateFile(const char *fileName, int recordSize)
 }
 #pragma clang diagnostic pop
 
-RC rmm::DestroyFile(const char *fileName)
+RC rmm::destroyFile(const char *fileName)
 {
 	return _pfm.DestroyFile(fileName);
 }
 
-RC rmm::OpenFile(const char *fileName, FileHandle &fileHandle)
+std::pair<RC, FileHandle> rmm::openFile(const char *fileName)
 {
 	int err;
 	PF_FileHandle pffh;
+	FileHandle fileHandle;
 
 	err = _pfm.OpenFile(fileName, pffh);
 	if (err)
-		return err;
-	err = fileHandle.SetFile(fileName, std::move(pffh));
+		return {err, FileHandle{}};
+	err = fileHandle.setFile(fileName, std::move(pffh));
 	if (err)
 	{
 		(void)_pfm.CloseFile(pffh);
-		return err;
+		return {err, FileHandle{}};
 	}
-	return 0;
+	return {0, std::move(fileHandle)};
 }
 
-RC rmm::CloseFile(FileHandle &fileHandle)
+RC rmm::closeFile(FileHandle &fileHandle)
 {
-	return fileHandle.CloseFile(
+	return fileHandle.closeFile(
 		std::bind(&PF_Manager::CloseFile, &_pfm, std::placeholders::_1));
 }
 

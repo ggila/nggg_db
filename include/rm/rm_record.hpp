@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/08 11:44:58 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 11:45:17 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 13:03:10 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -36,18 +36,18 @@ private:
 	int _rSize;
 	long *_pData;
 
-	RC _SetData(char const *&pData);
-	RC _SetRid(RID const &rid);
-	RC _SetSize(int const rSize);
+	RC _setData(char const *&pData);
+	RC _setRid(RID const &rid);
+	RC _setSize(int const rSize);
 
 public:
 	Record();                     // Constructor
 	~Record();                     // Destructor
+	Record(Record &&src);
+	Record &operator=(Record &&rhs);
 
 	Record(Record const &src) = delete;
-	Record(Record &&src) = delete;
 	Record &operator=(Record const &rhs) = delete;
-	Record &operator=(Record &&rhs) = delete;
 
 	// From subject:
 	std::pair<RC, char*> getData(void) const;

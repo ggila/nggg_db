@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 10:28:50 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 11:43:49 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 12:54:00 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -37,11 +37,11 @@ public:
 	/* CONSTRUCTION ***************** */
 	FileHandle();
 	~FileHandle();
+	FileHandle(FileHandle &&src);
+	FileHandle &operator=(FileHandle &&rhs);
 
 	FileHandle(FileHandle const &src) = delete;
-	FileHandle(FileHandle &&src) = delete;
 	FileHandle &operator=(FileHandle const &rhs) = delete;
-	FileHandle &operator=(FileHandle &&rhs) = delete;
 
     /* EXPOSED ********************** */
 	// From subject:
