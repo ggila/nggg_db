@@ -1,10 +1,22 @@
-#
+
+UNAME			:= $(shell uname | cut -c1-6)
 
 # ============================================================================ #
-# Directories
+# Modules
 
 # Git submodule to init
 MODULES					:= libft_cpp
+
+ifeq ($(UNAME),CYGWIN)
+  MAKE_LIBFT_CPP		:= -C\ libft_cpp\ LD_CPP="x86_64-w64-mingw32-g++"
+else
+  MAKE_LIBFT_CPP		:= -C\ libft_cpp\ BASE_FLAGS="-m32"
+endif
+
+
+# ============================================================================ #
+# Sources Directories
+
 # include search path for .o dependencies
 MKGEN_INCLUDESDIRS		:= include
 # Obj files directory
@@ -23,135 +35,137 @@ MKGEN_SRCSDIRS_SANDBOX	:= src/test/sandbox src/ftrb
 
 # ============================================================================ #
 # Default  flags
-BASE_FLAGS		= -Wall -Wextra -m32
+BASE_FLAGS		= -Wall -Wextra
 HEAD_FLAGS		= $(addprefix -I,$(INCLUDEDIRS))
-LD_FLAGS		= $(BASE_FLAGS) -o $@
+LD_FLAGS		=
 
 MAKEFLAGS		+= -j
+
+# ========================== #
+# From stanford makefile:
+
+# The STATS_OPTION can be set to -DPF_STATS or to nothing to turn on and
+# off buffer manager statistics.  The student should not modify this
+# flag at all!
+BASE_FLAGS		+= -DPF_STATS
+# ========================== #
 
 
 # ============================================================================ #
 # Build mode
 #	NAME		link; target
 #	CC_LD		link; ld
-#	LIBSBIN		link; dependancies
-#	LIBSMAKE	separate compilation; makefiles to call
 #	SRCSBIN		separate compilation; sources
 #	INCLUDEDIRS	separate compilation; sources includes path
+#	LIBSBIN		link; dependancies
+#	LIBSMAKE	separate compilation; makefiles to call
 
-BUILD_MODE		= pf
-
-# ==================================== #
-# From stanford makefile:
-
-# The STATS_OPTION can be set to -DPF_STATS or to nothing to turn on and
-# off buffer manager statistics.  The student should not modify this
-# flag at all!
-BASE_FLAGS += -DPF_STATS
-
-# ==================================== #
+BUILD_MODE = pf
 
 ifeq ($(BUILD_MODE),pf)
-	NAME			:= libpf.a
-	CC_LD			= ar
-	LD_FLAGS		= rcs $@
-	BASE_FLAGS		+= -O2
+  NAME			:= libpf.a
+  CC_LD			= $(CC_AR)
+  BASE_FLAGS	+= -O2
 
-	SRCSBIN			= $(MKGEN_SRCSBIN_PF) #gen by mkgen
-	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+  SRCSBIN		= $(MKGEN_SRCSBIN_PF) #gen by mkgen
+  INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS)
 
 else ifeq ($(BUILD_MODE),rm)
-	NAME			:= librm.a
-	CC_LD			= ar
-	LD_FLAGS		= rcs $@
+  NAME			:= librm.a
+  CC_LD			= $(CC_AR)
 
-	SRCSBIN			= $(MKGEN_SRCSBIN_RM) #gen by mkgen
-	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
+  SRCSBIN		= $(MKGEN_SRCSBIN_RM) #gen by mkgen
+  INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
 
-	LIBSMAKE		= libft_cpp\ BASE_FLAGS="-m32"
-	LIBSBIN			= libft_cpp/libft.a
+  LIBSMAKE		= $(MAKE_LIBFT_CPP)
+  LIBSBIN		= libft_cpp/libft.a
 
 else ifeq ($(BUILD_MODE),pf_test1)
-	NAME			:= pf_test1
-	CC_LD			= $(CC_CPP)
-	LD_FLAGS		+= -L. -lpf
+  NAME			:= pf_test1
+  CC_LD			= $(CC_CPP)
+  LD_FLAGS		+= -L. -lpf
 
-	SRCSBIN			= $(MKGEN_SRCSBIN_PF_TEST1) #gen by mkgen
-	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+  SRCSBIN		= $(MKGEN_SRCSBIN_PF_TEST1) #gen by mkgen
+  INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS)
 
-	LIBSMAKE		= .\ BUILD_MODE=pf
-	LIBSBIN			= libpf.a
+  LIBSMAKE		= BUILD_MODE=pf
+  LIBSBIN			= libpf.a
 
 else ifeq ($(BUILD_MODE),pf_test2)
-	NAME			:= pf_test2
-	CC_LD			= $(CC_CPP)
-	LD_FLAGS		+= -L. -lpf
+  NAME			:= pf_test2
+  CC_LD			= $(CC_CPP)
+  LD_FLAGS		+= -L. -lpf
 
-	SRCSBIN			= $(MKGEN_SRCSBIN_PF_TEST2) #gen by mkgen
-	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+  SRCSBIN		= $(MKGEN_SRCSBIN_PF_TEST2) #gen by mkgen
+  INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS)
 
-	LIBSMAKE		= .\ BUILD_MODE=pf
-	LIBSBIN			= libpf.a
+  LIBSMAKE		= BUILD_MODE=pf
+  LIBSBIN		= libpf.a
 
 else ifeq ($(BUILD_MODE),pf_test3)
-	NAME			:= pf_test3
-	CC_LD			= $(CC_CPP)
-	LD_FLAGS		+= -L. -lpf
+  NAME			:= pf_test3
+  CC_LD			= $(CC_CPP)
+  LD_FLAGS		+= -L. -lpf
 
-	SRCSBIN			= $(MKGEN_SRCSBIN_PF_TEST3) #gen by mkgen
-	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
+  SRCSBIN		= $(MKGEN_SRCSBIN_PF_TEST3) #gen by mkgen
+  INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS)
 
-	LIBSMAKE		= .\ BUILD_MODE=pf
-	LIBSBIN			= libpf.a
+  LIBSMAKE		= BUILD_MODE=pf
+  LIBSBIN		= libpf.a
 
 else ifeq ($(BUILD_MODE),sandbox)
-	NAME			:= sandbox
-	CC_LD			= $(CC_CPP)
-	LD_FLAGS		+= -L. -lpf -lrm -Llibft_cpp -lft
+  NAME			:= sandbox
+  CC_LD			= $(CC_CPP)
+  LD_FLAGS		+= -L. -lpf -lrm -Llibft_cpp -lft
+  # LD_FLAGS		+= -lboost_unit_test_framework
 
-	SRCSBIN			= $(MKGEN_SRCSBIN_SANDBOX) #gen by mkgen
-	INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
+  SRCSBIN		= $(MKGEN_SRCSBIN_SANDBOX) #gen by mkgen
+  INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
 
-	LIBSMAKE		= .\ BUILD_MODE=pf .\ BUILD_MODE=rm
-	LIBSBIN			= libpf.a librm.a
-# LD_FLAGS		+= -lboost_unit_test_framework
+  LIBSMAKE		= BUILD_MODE=pf BUILD_MODE=rm
+  LIBSBIN		= libpf.a librm.a
 
+endif
+
+
+# ============================================================================ #
+# Compilers
+C_FLAGS			= $(HEAD_FLAGS) $(BASE_FLAGS)
+CPP_FLAGS		= $(HEAD_FLAGS) $(BASE_FLAGS) -std=c++14
+
+ifeq ($(UNAME),CYGWIN)
+  CC_C			= x86_64-w64-mingw32-gcc
+  CC_CPP		= x86_64-w64-mingw32-g++
+  CC_AR			= x86_64-w64-mingw32-ar
+  ifeq ($(CC_LD),$(CC_CPP))
+    LD_FLAGS	+= -static
+  endif
+else
+  CC_C			= clang
+  CC_CPP		= clang++
+  CC_AR			= ar
+  BASE_FLAGS	+= -m32
+endif
+
+ifeq ($(CC_LD),$(CC_AR))
+  LD_FLAGS_		= rcs $@ $(LD_FLAGS)
+else
+  LD_FLAGS_		= -o $@ $(LD_FLAGS) $(BASE_FLAGS)
 endif
 
 
 # ============================================================================ #
 # Misc
-UNAME			:= $(shell uname | cut -c1-6)
-PRINT_OK		= printf '\033[32m$<\033[0m\n'
-PRINT_LINK		= printf '\033[32m$@\033[0m\n'
-DEPEND			:= depend.mk
 MODULE_RULES	:= $(addsuffix /.git,$(MODULES))
+PRINT_OK		= printf '  \033[32m$<\033[0m\n'
+PRINT_LINK		= printf '\033[32m$@\033[0m\n'
+PRINT_MAKE		= printf '\033[32mmake $@\033[0m\n'
+DEPEND			:= depend.mk
 SHELL			:= /bin/bash
-
-
-# ============================================================================ #
-# C
-C_FLAGS			= $(HEAD_FLAGS) $(BASE_FLAGS)
-ifeq ($(UNAME),CYGWIN)
-	CC_C		= x86_64-w64-mingw32-gcc
-else
-	CC_C		= clang
-endif
-
-
-# ============================================================================ #
-# C++
-CPP_FLAGS		= $(HEAD_FLAGS) $(BASE_FLAGS) -std=c++14
-ifeq ($(UNAME),CYGWIN)
-	CC_CPP		= x86_64-w64-mingw32-g++
-	LD_FLAGS	+= -static
-else
-	CC_CPP		= clang++
-endif
-
 
 # ============================================================================ #
 # Rules
+
 # Default rule (needed to be before any include)
 all: _all_git
 
@@ -170,7 +184,7 @@ _all_linkage: $(NAME)
 
 # Linking
 $(NAME): $(LIBSBIN) $(SRCSBIN)
-	$(CC_LD) $(LD_FLAGS) $(SRCSBIN) && $(PRINT_LINK)
+	$(CC_LD) $(LD_FLAGS_) $(SRCSBIN) && $(PRINT_LINK)
 
 # Compiling
 $(MKGEN_OBJDIR)/%.o: %.c
@@ -187,7 +201,7 @@ $(MODULE_RULES):
 
 # Compile libs
 $(LIBSMAKE):
-	$(MAKE) -C $@
+	$(MAKE) $@ && $(PRINT_MAKE)
 
 # Create obj directories
 $(MKGEN_OBJDIR)/%/:
