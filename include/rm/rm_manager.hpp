@@ -1,4 +1,4 @@
-// ************************************************************************** //
+e// ************************************************************************** //
 //                                                                            //
 //                                                        :::      ::::::::   //
 //   RM_Manager.hpp                                     :+:      :+:    :+:   //
@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:50:39 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/01 07:01:22 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:36:11 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -48,13 +48,13 @@ public:
 	 ** PF_PAGE_SIZE and return a nonzero code if recordSize is too large for
 	 ** your RM component to handle.
 	 **/
-    RC CreateFile(const char *fileName, int recordSize);
+    RC createFile(const char *fileName, int recordSize);
 
 	/**
 	 ** This method should destroy the file whose name is fileName by calling
 	 ** PF_Manager::DestroyFile.
 	 **/
-	RC DestroyFile(const char *fileName);
+	RC destroyFile(const char *fileName);
 
 	/** This method should open the file called fileName by calling
 	 ** PF_Manager::OpenFile. If the method is successful, the fileHandle object
@@ -70,12 +70,12 @@ public:
 	 ** RM component. You may also assume that DestroyFile will never be called
 	 ** on an open file.
 	 **/
-	RC OpenFile(const char *fileName, RM_FileHandle &fileHandle);
+	std::pair<RC, RM_FileHandle> openFile(const char *fileName);
 
 	/** This method should close the open file instance referred to by
 	 ** fileHandle by calling PF_Manager:: CloseFile.
 	 **/
-	RC CloseFile(RM_FileHandle &fileHandle);
+	RC closeFile(RM_FileHandle &fileHandle);
 
 private:
 	/* INTERNAL ********************* */

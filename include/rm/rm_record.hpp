@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 09:52:40 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/08 09:41:50 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:36:47 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,22 @@ public:
 	RM_Record &operator=(RM_Record &&rhs) = delete;
 
 	// From subject:
-	RC GetData(char *&pData) const;
+	std::pair<RC, char*> getData(void) const;
 
 	// From subject:
 	// Get the record id
-	RC GetRid(RID &rid) const;
+	std::pair<RC, RID> getRid(void) const;
 
 	// NOT From subject:
 	// Set pData to point to the record's contents
-	RC SetRecord(char const *pData, RID const &rid, int rSize);
+	RC setRecord(char const *pData, RID const &rid, int rSize);
 
 	// NOT From subject:
 	// return true if instance is set, false otherwise
-	RC IsSet() const;
+	RC isSet(void) const;
 
 	// NOT From subject:
-	std::string toStr() const;
+	std::string toStr(void) const;
 
 	// NOT From subject:
 	struct Metrics

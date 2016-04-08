@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 10:28:50 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 09:38:47 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:33:25 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -42,29 +42,29 @@ public:
     /* EXPOSED ********************** */
 	// From subject:
 	// Get a record
-	RC GetRec(const RID &rid, RM_Record &rec) const;
+	std::pair<RC, RM_Record> getRec(RID const &rid) const;
 
 	// From subject:
 	// Insert a new record, return record id
-	RC InsertRec(const char *pData, RID &rid);
+	std::pair<RC, RID> insertRec(char const *pData);
 
 	// From subject:
 	// Delete a record
-	RC DeleteRec(const RID &rid);
+	RC deleteRec(RID const &rid);
 
 	// From subject:
 	// Update a record
-	RC UpdateRec(const RM_Record &rec);
+	RC updateRec(RM_Record const &rec);
 
 	// From subject:
 	// Write dirty page(s) to disk
-	RC ForcePages(PageNum pageNum = ALL_PAGES) const;
+	RC forcePages(PageNum pageNum = ALL_PAGES) const;
 
 	// NOT From subject:
-	RC SetFile(char const *fileName, PF_FileHandle &&rhs);
+	RC setFile(char const *fileName, PF_FileHandle &&rhs);
 
 	// NOT From subject:
-	RC CloseFile(std::function<RC (PF_FileHandle&)> const &f);
+	RC closeFile(std::function<RC (PF_FileHandle&)> const &f);
 
 
 private:

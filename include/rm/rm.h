@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 15:58:11 by ggilaber          #+#    #+#             */
-/*   Updated: 2016/04/08 08:24:51 by ngoguey          ###   ########.fr       */
+/*   Updated: 2016/04/08 11:37:39 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ struct RM_FileHdr {
 //   int firstFree;     // first free page in the linked list
 //   int numPages;      // # of pages in the file
 	int recordSize;
-	/* int firstFreeRec;	// first free page in the linked list */
+	int firstFreeRec;	// first free page in the linked list
 };
 
 struct RM_PageHdr {
+	int firstFreeRec;	// first free page in the linked list
 
 
 };
@@ -73,7 +74,7 @@ struct RM_PageHdr {
 typedef int SlotNum;
 
 enum e_rm_warning_code {
-	RM_RECORDPERPAGE = START_RM_WARN, // recordSize too big
+	RM_BADRECORDSIZE = START_RM_WARN, // recordSize too big or too low
 	RM_NULLDATA, // passing null data to rm_rec
 	RM_BADRECSIZE, // bad record size in rm_rec
 	RM_RECNONINIT, // rm_rec used initialized

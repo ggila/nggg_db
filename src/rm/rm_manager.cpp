@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 08:09:29 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 09:46:31 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -54,16 +54,18 @@ RM_Manager &rmm::GetInstance(void)
 RC rmm::CreateFile(const char *fileName, int recordSize)
 {
 	int err;
+	RM_Record::Metrics recMetrics;
 
-	//TODO: Write data to file header
-/*
-	// check recordSize
-	if (recordSize > PF_PAGE_SIZE / MIN_RECORD_PER_PAGE)
-		return RN_RECORDPERPAGE;
-*/
-	// open file with PF_Manager
+	if (recordSize <= 0)
+		return RM_BADRECORDSIZE;
+	recMetrics =  RM_Record::Metrics(recordSize);
+	if (recMetrics.recPerPage < MIN_RECORD_PER_PAGE)
+		return RM_BADRECORDSIZE;
 	if ((err = _pfm.CreateFile(fileName)) != 0)
 		return err;
+
+
+//TODO: Write data to file header
 /*
 	//set PF Header
 //   PF_FileHdr *hdr = (PF_FileHdr*)hdrBuf;

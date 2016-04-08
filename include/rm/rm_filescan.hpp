@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/01 10:16:27 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/06 14:01:20 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 11:34:21 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -48,11 +48,11 @@ public:
 	RM_FileScan &operator=(RM_FileScan &&rhs) = delete;
 
 	/* EXPOSED ********************** */
-	RC OpenScan(const RM_FileHandle &fileHandle,
+	RC openScan(RM_FileHandle const &fileHandle,
 				AttrType attrType, int attrLength, int attrOffset,
 				CompOp compOp, void const *value, ClientHint pinHint = NO_HINT);
-	RC GetNextRec(RM_Record &rec);
-	RC CloseScan(void);
+	std::pair<RC, RM_Record> getNextRec(void);
+	RC closeScan(void);
 
 private:
 	/* INTERNAL ********************* */
