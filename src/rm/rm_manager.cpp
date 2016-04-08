@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 14:59:41 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/08 15:02:56 by ggilaber         ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -149,6 +149,7 @@ RC rmm::InitFileHeader::operator()(int recordSize)
 	if (err)
 		return err;
 	::memcpy(pData, fh, sizeof(RM_FileHdr));
+	// set dirty page
 	err = _pffh.UnpinPage(0);
 	return err;
 }
