@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 10:28:50 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 12:54:00 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 13:06:11 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -16,7 +16,7 @@
 # include <functional>
 
 # include "pf/pf.h"
-# include "rm/rid.hpp"
+# include "ftrb/rid.hpp"
 # include "rm/rm_record.hpp"
 
 namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //

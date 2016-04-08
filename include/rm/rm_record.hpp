@@ -6,14 +6,14 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/08 11:44:58 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 13:03:10 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 13:06:22 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #ifndef RM_RECORD_HPP
 # define RM_RECORD_HPP
 
-#include "rm/rid.hpp"
+#include "ftrb/rid.hpp"
 #include <string>
 
 /*

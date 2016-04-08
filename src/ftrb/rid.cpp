@@ -6,11 +6,11 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:05 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/08 12:43:47 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 13:05:58 by ngoguey          ###   ########.fr       //
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rm/rid.hpp"
+#include "ftrb/rid.hpp"
 #include "ft/utils.hpp"
 
 RID::RID()

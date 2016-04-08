@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 11:08:20 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 13:00:01 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/08 13:04:28 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -63,7 +63,7 @@ std::pair<RC, Record> rmfh::getRec(RID const &rid) const
 }
 
 // RC rmfh::insertRec(const char *pData, RID &rid)
-std::pair<RC, RID> rmfh::insertRec(char const *pData)
+std::pair<RC, RID> rmfh::insertRec(char const *pData) //TODO
 {
 	// int err;
 	// PageNum pageNum;
