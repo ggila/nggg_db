@@ -6,12 +6,11 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 11:08:20 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/09 14:23:38 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/09 15:01:16 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
-
-
+#include "ft/padformat.hpp"
 #include "ft/assert.hpp"
 #include "ftrb/error.hpp"
 #include "rm/rm_filehandle.hpp"
@@ -160,6 +159,7 @@ RC rmfh::setFile(char const *fileName, PF_FileHandle &&rhs)
 	if (_init)
 		return RM_FILEHANDLEALREADYINIT;
 	std::tie(err, _fileHdr) = ReadFileHeader{rhs}();
+	FTPAD("Read file, recordSize=%", _fileHdr.recordSize);
 	if (err)
 		return err;
 	_recMetrics = Record::Metrics(_fileHdr.recordSize);

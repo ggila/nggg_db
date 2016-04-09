@@ -36,11 +36,11 @@ build/src/pf/pf_manager.o: include/pf/pf.h include/pf/pf_buffermgr.h include/pf/
 build/src/pf/pf_pagehandle.o: include/pf/pf.h include/pf/pf_internal.h include/redbase.h src/pf/pf_pagehandle.cc | build/src/pf/
 build/src/pf/pf_statistics.o: include/linkedlist.h include/pf/pf.h include/redbase.h include/statistics.h src/pf/pf_statistics.cc | build/src/pf/
 build/src/pf/statistics.o: include/linkedlist.h include/statistics.h src/pf/statistics.cc | build/src/pf/
-build/src/rm/rm_filehandle.o: include/ftrb/rid.hpp include/pf/pf.h include/redbase.h include/rm/rm.h include/rm/rm_filehandle.hpp include/rm/rm_record.hpp src/rm/rm_filehandle.cpp | build/src/rm/
+build/src/rm/rm_filehandle.o: include/ftrb/error.hpp include/ftrb/rid.hpp include/ftrb/waryoperation.hpp include/pf/pf.h include/redbase.h include/rm/rm.h include/rm/rm_filehandle.hpp include/rm/rm_record.hpp src/rm/rm_filehandle.cpp | build/src/rm/
 build/src/rm/rm_filescan.o: include/ftrb/rid.hpp include/pf/pf.h include/redbase.h include/rm/rm.h include/rm/rm_filescan.hpp include/rm/rm_record.hpp src/rm/rm_filescan.cpp | build/src/rm/
 build/src/rm/rm_manager.o: include/ftrb/error.hpp include/ftrb/rid.hpp include/ftrb/waryoperation.hpp include/pf/pf.h include/redbase.h include/rm/rm.h include/rm/rm_filehandle.hpp include/rm/rm_manager.hpp include/rm/rm_record.hpp src/rm/rm_manager.cpp | build/src/rm/
 build/src/rm/rm_record.o: include/ftrb/rid.hpp include/pf/pf.h include/redbase.h include/rm/rm.h include/rm/rm_record.hpp src/rm/rm_record.cpp | build/src/rm/
-build/src/test/42db/42db.o: include/ftrb/rid.hpp include/ftrb/waryoperation.hpp include/pf/pf.h include/redbase.h include/rm/rm.h include/rm/rm_manager.hpp include/rm/rm_record.hpp src/test/42db/42db.cpp | build/src/test/42db/
+build/src/test/42db/42db.o: include/ftrb/rid.hpp include/ftrb/waryoperation.hpp include/pf/pf.h include/redbase.h include/rm/rm.h include/rm/rm_filehandle.hpp include/rm/rm_manager.hpp include/rm/rm_record.hpp src/test/42db/42db.cpp | build/src/test/42db/
 build/src/test/pf_test1/pf_test1.o: include/linkedlist.h include/pf/pf.h include/pf/pf_hashtable.h include/pf/pf_internal.h include/redbase.h include/statistics.h src/test/pf_test1/pf_test1.cc | build/src/test/pf_test1/
 build/src/test/pf_test2/pf_test2.o: include/linkedlist.h include/pf/pf.h include/pf/pf_hashtable.h include/pf/pf_internal.h include/redbase.h include/statistics.h src/test/pf_test2/pf_test2.cc | build/src/test/pf_test2/
 build/src/test/pf_test3/pf_test3.o: include/pf/pf.h include/pf/pf_hashtable.h include/pf/pf_internal.h include/redbase.h src/test/pf_test3/pf_test3.cc | build/src/test/pf_test3/

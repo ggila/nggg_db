@@ -40,7 +40,7 @@ BASE_FLAGS		= -Wall -Wextra
 HEAD_FLAGS		= $(addprefix -I,$(INCLUDEDIRS))
 LD_FLAGS		=
 
-# MAKEFLAGS		+= -j
+MAKEFLAGS		+= -j
 
 # ========================== #
 # From stanford makefile:

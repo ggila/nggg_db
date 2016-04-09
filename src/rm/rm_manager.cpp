@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/09 14:28:19 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/09 15:30:28 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -60,9 +60,9 @@ Manager &rmm::getInstance(void)
 
 RC rmm::createFile(const char *fileName, int recordSize)
 {
-
     int err;
 	Record::Metrics recMetrics;
+	FTPADSCOPE();
 
 	if (recordSize <= 0)
 		return RM_BADRECORDSIZE;
@@ -85,6 +85,7 @@ std::pair<RC, FileHandle> rmm::openFile(const char *fileName)
 	int err;
 	PF_FileHandle pffh;
 	FileHandle fileHandle;
+	FTPADSCOPE();
 
 	err = _pfm.OpenFile(fileName, pffh);
 	if (err)
@@ -95,14 +96,12 @@ std::pair<RC, FileHandle> rmm::openFile(const char *fileName)
 		(void)_pfm.CloseFile(pffh);
 		return {err, FileHandle{}};
 	}
-	// FTPAD();
-	// ft::f(std::cout, "rmm::openFile() file % successfully opened and read\n"
-	// 	  , fileName);
 	return {0, std::move(fileHandle)};
 }
 
 RC rmm::closeFile(FileHandle &fileHandle)
 {
+	FTPADSCOPE();
 	return fileHandle.closeFile(
 		std::bind(&PF_Manager::CloseFile, &_pfm, std::placeholders::_1));
 }
