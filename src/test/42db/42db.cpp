@@ -4,6 +4,7 @@
 
 #include "rm/rm_manager.hpp"
 #include "rm/rm_record.hpp"
+#include "rm/rm_filehandle.hpp"
 
 
 struct record {
@@ -16,13 +17,18 @@ struct record {
 int main(void)
 {
 	PF_Manager pfm;
+	rm::FileHandle rmfh;
 	rm::Manager &rmm = rm::Manager::getInstance(pfm);
+	int rc;
 
 	rmm.createFile("42.db", sizeof(record));
+	std::tie(rc, rmfh) = rmm.openFile("42.db");
+
 	pfm.PrintBuffer();
 	try {
 		std::ifstream file;
 		std::string line;
+		int id = 0;
 
 		file.open("42.data");
 		while (std::getline(file, line))
@@ -43,6 +49,10 @@ int main(void)
 					&r.average,
 					&r.level);
 
+			r.id = id++;
+			if (id < 10)
+				rmfh.insertRec((const char*)&r);
+
 //			if (nb_arg == 11) {
 //				rmr();
 //			}
@@ -56,5 +66,8 @@ int main(void)
 	catch (...) {
 		std::cout << "fuckya" << std::endl;
 	}
+
+	pfm.PrintBuffer();
+
 	return 0;
 }

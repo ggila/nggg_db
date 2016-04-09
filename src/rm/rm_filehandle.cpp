@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 11:08:20 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 13:04:28 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/09 11:35:26 by ggilaber         ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -38,6 +38,16 @@ rmfh::FileHandle(FileHandle &&src)
 rmfh::~FileHandle()
 {
 
+}
+
+FileHandle &rmfh::operator=(FileHandle &&rhs)
+{
+	_init = rhs._init;
+	_fileName = std::move(rhs._fileName);
+	_pffh = std::move(rhs._pffh);
+	_recMetrics = rhs._recMetrics;
+
+	return *this;
 }
 
 /* EXPOSED ****************************************************************** */
