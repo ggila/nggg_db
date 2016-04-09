@@ -6,11 +6,14 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 11:08:20 by ngoguey           #+#    #+#             //
-/*   Updated: 2016/04/09 11:35:26 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/09 14:23:38 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
+
+
 #include "ft/assert.hpp"
+#include "ftrb/error.hpp"
 #include "rm/rm_filehandle.hpp"
 
 namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
@@ -23,7 +26,6 @@ using rmfh = FileHandle;
 rmfh::FileHandle()
 	: _init(false)
 {
-
 }
 
 rmfh::FileHandle(FileHandle &&src)
@@ -37,7 +39,6 @@ rmfh::FileHandle(FileHandle &&src)
 
 rmfh::~FileHandle()
 {
-
 }
 
 FileHandle &rmfh::operator=(FileHandle &&rhs)
@@ -46,7 +47,6 @@ FileHandle &rmfh::operator=(FileHandle &&rhs)
 	_fileName = std::move(rhs._fileName);
 	_pffh = std::move(rhs._pffh);
 	_recMetrics = rhs._recMetrics;
-
 	return *this;
 }
 
@@ -155,10 +155,14 @@ RC rmfh::forcePages(PageNum pageNum /*= ALL_PAGES*/) const
 
 RC rmfh::setFile(char const *fileName, PF_FileHandle &&rhs)
 {
+	int err;
+
 	if (_init)
 		return RM_FILEHANDLEALREADYINIT;
-	//TODO: Read info from file header such as recordsize
-	_recMetrics = Record::Metrics(42);
+	std::tie(err, _fileHdr) = ReadFileHeader{rhs}();
+	if (err)
+		return err;
+	_recMetrics = Record::Metrics(_fileHdr.recordSize);
 	_init = true;
 	_fileName = fileName;
 	_pffh = rhs;
@@ -174,6 +178,36 @@ RC rmfh::closeFile(std::function<RC (PF_FileHandle&)> const &f)
 
 
 /* INTERNAL ***************************************************************** */
+rmfh::ReadFileHeader::ReadFileHeader(PF_FileHandle &pffh)
+    : ftrb::WaryOperation(), _pffh(pffh)
+{
+	return ;
+}
+
+std::pair<RC, RM_FileHdr> rmfh::ReadFileHeader::operator()(void)
+{
+	PF_PageHandle pfph;
+	int err;
+	char *pData;
+	PageNum pn;
+
+	err = _pffh.GetThisPage(0, pfph);
+	if (err)
+		return {err, {}};
+	this->addDestructionOperation([this]{
+			int const err = this->_pffh.UnpinPage(0);
+			FTASSERT(err == 0, ftrb::errToStr(err));
+		});
+
+	FTASSERT((pfph.GetPageNum(pn), pn == 0));
+	err = pfph.GetData(pData);
+	if (err)
+		return {err, {}};
+	return {0, *reinterpret_cast<RM_FileHdr*>(pData)};
+}
+
+rmfh::ReadFileHeader::~ReadFileHeader()
+{}
 
 
 }; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //

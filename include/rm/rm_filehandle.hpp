@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/04/04 10:28:50 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 13:06:11 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/09 14:20:22 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,6 +15,7 @@
 
 # include <functional>
 
+# include "ftrb/waryoperation.hpp"
 # include "pf/pf.h"
 # include "ftrb/rid.hpp"
 # include "rm/rm_record.hpp"
@@ -31,6 +32,7 @@ private:
 	std::string _fileName;
 	PF_FileHandle _pffh;
 	Record::Metrics _recMetrics;
+	RM_FileHdr _fileHdr;
 
 public:
 
@@ -72,6 +74,25 @@ public:
 
 
 private:
+	/* INTERNAL ********************* */
+	class ReadFileHeader : private ftrb::WaryOperation
+	{
+	private:
+		PF_FileHandle &_pffh;
+
+	public:
+		ReadFileHeader(PF_FileHandle &pffh);
+		virtual ~ReadFileHeader() final;
+
+		std::pair<RC, RM_FileHdr> operator()(void);
+
+		ReadFileHeader() = delete;
+		ReadFileHeader(ReadFileHeader const &src) = delete;
+		ReadFileHeader(ReadFileHeader &&src) = delete;
+		ReadFileHeader &operator=(ReadFileHeader const &rhs) = delete;
+		ReadFileHeader &operator=(ReadFileHeader &&rhs) = delete;
+	};
+
 };
 
 

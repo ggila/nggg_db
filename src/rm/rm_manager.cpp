@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/09 10:07:45 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/09 14:28:19 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -14,6 +14,8 @@
 #include <iostream>
 
 #include "ft/assert.hpp"
+#include "ft/utils.hpp"
+#include "ft/padformat.hpp"
 #include "ftrb/error.hpp"
 #include "rm/rm_manager.hpp"
 #include "rm/rm_filehandle.hpp"
@@ -56,8 +58,6 @@ Manager &rmm::getInstance(void)
 
 /* EXPOSED ****************************************************************** */
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-parameter" // TODO: remove
 RC rmm::createFile(const char *fileName, int recordSize)
 {
 
@@ -73,22 +73,7 @@ RC rmm::createFile(const char *fileName, int recordSize)
 		return err;
 	err = InitFileHeader{_pfm}(fileName, recordSize);
 	return err;
-
-//TODO: Write data to file header
-/*
-//set PF Header
-//   PF_FileHdr *hdr = (PF_FileHdr*)hdrBuf;
-hdr->firstFree = PF_PAGE_LIST_END;
-hdr->numPages = 1;
-
-// Set RM Header
-//   FileHdr *hdr = (FileHdr*)hdrBuf;
-hdr->firstFree = PF_PAGE_LIST_END;
-hdr->numPages = 1;
-*/
-	return err;
 }
-#pragma clang diagnostic pop
 
 RC rmm::destroyFile(const char *fileName)
 {
@@ -110,6 +95,9 @@ std::pair<RC, FileHandle> rmm::openFile(const char *fileName)
 		(void)_pfm.CloseFile(pffh);
 		return {err, FileHandle{}};
 	}
+	// FTPAD();
+	// ft::f(std::cout, "rmm::openFile() file % successfully opened and read\n"
+	// 	  , fileName);
 	return {0, std::move(fileHandle)};
 }
 
@@ -127,12 +115,13 @@ rmm::InitFileHeader::InitFileHeader(PF_Manager &pfm)
 	return ;
 }
 
-
 RC rmm::InitFileHeader::operator()(char const *fileName, int recordSize)
 {
-	RM_FileHdr const fh[1] = {{.recordSize = recordSize,
-							   .firstFreeRec = RM_NO_FREE_REC,
-							   .numPages = 0}};
+	RM_FileHdr const fh[1] = {{
+			.recordSize = recordSize,
+			.firstFreeRec = RM_NO_FREE_REC,
+			.numPages = 0
+		}};
 	PF_PageHandle pfph;
 	int err;
 	char *pData;
