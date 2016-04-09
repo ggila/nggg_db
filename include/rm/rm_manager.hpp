@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:50:39 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/08 14:56:53 by ngoguey          ###   ########.fr       //
+//   Updated: 2016/04/09 10:17:36 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,6 +15,7 @@
 
 # include <utility>
 
+# include "ftrb/waryoperation.hpp"
 # include "pf/pf.h"
 
 namespace rm // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
@@ -85,21 +86,18 @@ public:
 
 private:
 	/* INTERNAL ********************* */
-
-	class InitFileHeader
+	class InitFileHeader : private ftrb::WaryOperation
 	{
 	private:
 		PF_Manager &_pfm;
 		PF_FileHandle _pffh;
-		RC _initErr;
 
 	public:
-		InitFileHeader(PF_Manager &rmm, char const *fileName);
-		~InitFileHeader();
+		InitFileHeader(PF_Manager &rmm);
+		virtual ~InitFileHeader() final;
 
-		RC operator()(int recordSize);
+		RC operator()(char const *fileName, int recordSize);
 
-	private:
 		InitFileHeader() = delete;
 		InitFileHeader(InitFileHeader const &src) = delete;
 		InitFileHeader(InitFileHeader &&src) = delete;

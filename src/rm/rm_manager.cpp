@@ -6,13 +6,15 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:52:34 by ngoguey           #+#    #+#             //
-/*   Updated: 2016/04/08 15:02:56 by ggilaber         ###   ########.fr       */
+//   Updated: 2016/04/09 10:07:45 by ngoguey          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <stdexcept>
+#include <iostream>
 
 #include "ft/assert.hpp"
+#include "ftrb/error.hpp"
 #include "rm/rm_manager.hpp"
 #include "rm/rm_filehandle.hpp"
 
@@ -69,7 +71,7 @@ RC rmm::createFile(const char *fileName, int recordSize)
 		return RM_BADRECORDSIZE;
 	if ((err = _pfm.CreateFile(fileName)) != 0)
 		return err;
-	err = InitFileHeader{_pfm, fileName}(recordSize);
+	err = InitFileHeader{_pfm}(fileName, recordSize);
 	return err;
 
 //TODO: Write data to file header
@@ -119,14 +121,14 @@ RC rmm::closeFile(FileHandle &fileHandle)
 
 /* INTERNAL ***************************************************************** */
 
-rmm::InitFileHeader::InitFileHeader(PF_Manager &pfm, char const *fileName)
-    : _pfm(pfm), _initErr(0)
+rmm::InitFileHeader::InitFileHeader(PF_Manager &pfm)
+    : ftrb::WaryOperation(), _pfm(pfm), _pffh()
 {
-	_initErr = pfm.OpenFile(fileName, _pffh);
 	return ;
 }
 
-RC rmm::InitFileHeader::operator()(int recordSize)
+
+RC rmm::InitFileHeader::operator()(char const *fileName, int recordSize)
 {
 	RM_FileHdr const fh[1] = {{.recordSize = recordSize,
 							   .firstFreeRec = RM_NO_FREE_REC,
@@ -136,30 +138,34 @@ RC rmm::InitFileHeader::operator()(int recordSize)
 	char *pData;
 	PageNum pn;
 
-	if (_initErr)
-		return _initErr;
+	err = _pfm.OpenFile(fileName, _pffh);
+	if (err)
+		return err;
+	this->addDestructionOperation([this]{
+			int const err = this->_pfm.CloseFile(this->_pffh);
+			FTASSERT(err == 0, ftrb::errToStr(err));
+		});
+
 	err = _pffh.AllocatePage(pfph);
 	if (err)
 		return err;
+	this->addDestructionOperation([this]{
+			int const err = this->_pffh.UnpinPage(0);
+			FTASSERT(err == 0, ftrb::errToStr(err));
+		});
+
 	FTASSERT((pfph.GetPageNum(pn), pn == 0));
 	err = pfph.GetData(pData);
 	if (err)
 		return err;
-	err = pfph.GetData(pData);
-	if (err)
-		return err;
 	::memcpy(pData, fh, sizeof(RM_FileHdr));
-	// set dirty page
-	err = _pffh.UnpinPage(0);
+	err = _pffh.MarkDirty(0);
 	return err;
 }
 
 rmm::InitFileHeader::~InitFileHeader()
-{
-	if (!_initErr)
-		(void)_pfm.CloseFile(_pffh);
-	return ;
-}
+{}
+
 
 }; // ~~~~~~~~~~~~~~~~~~~~~ END OF NAMESPACE RM //
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
