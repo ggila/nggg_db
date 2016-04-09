@@ -93,6 +93,7 @@ set cscopeverbose
 set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set hidden
+set hlsearch
 set incsearch
 set laststatus=2
 set listchars=tab:|\ 
@@ -135,11 +136,13 @@ badd +23 include/rm/rm.h
 badd +1 include/rm/RM_Manager.hpp
 badd +8 src/rm/rm_manager.cpp
 badd +85 include/rm/rm_manager.hpp
-badd +0 include/rm/rm_record.hpp
+badd +1 include/rm/rm_record.hpp
 badd +1 src/rm/rm_record.hpp
-badd +0 src/rm/rm_record.cpp
-badd +0 src/rm/rid.cpp
-badd +0 include/rm/rid.hpp
+badd +1 src/rm/rm_record.cpp
+badd +1 src/rm/rid.cpp
+badd +1 include/rm/rid.hpp
+badd +0 include/ftrb/rid.hpp
+badd +0 src/ftrb/rid.cpp
 args Makefile
 edit include/redbase.h
 set splitbelow splitright
@@ -161,13 +164,13 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 90 + 182) / 364)
-exe 'vert 2resize ' . ((&columns * 91 + 182) / 364)
-exe 'vert 3resize ' . ((&columns * 90 + 182) / 364)
-exe '4resize ' . ((&lines * 43 + 42) / 84)
-exe 'vert 4resize ' . ((&columns * 90 + 182) / 364)
-exe '5resize ' . ((&lines * 37 + 42) / 84)
-exe 'vert 5resize ' . ((&columns * 90 + 182) / 364)
+exe 'vert 1resize ' . ((&columns * 68 + 138) / 277)
+exe 'vert 2resize ' . ((&columns * 69 + 138) / 277)
+exe 'vert 3resize ' . ((&columns * 69 + 138) / 277)
+exe '4resize ' . ((&lines * 43 + 41) / 83)
+exe 'vert 4resize ' . ((&columns * 68 + 138) / 277)
+exe '5resize ' . ((&lines * 37 + 41) / 83)
+exe 'vert 5resize ' . ((&columns * 68 + 138) / 277)
 argglobal
 inoremap <buffer> ,print ft_printf(");f)i
 inoremap <buffer> ,str std::string
@@ -717,13 +720,13 @@ normal! zt
 normal! 01l
 lcd ~/_git/nggg_db
 wincmd w
-exe 'vert 1resize ' . ((&columns * 90 + 182) / 364)
-exe 'vert 2resize ' . ((&columns * 91 + 182) / 364)
-exe 'vert 3resize ' . ((&columns * 90 + 182) / 364)
-exe '4resize ' . ((&lines * 43 + 42) / 84)
-exe 'vert 4resize ' . ((&columns * 90 + 182) / 364)
-exe '5resize ' . ((&lines * 37 + 42) / 84)
-exe 'vert 5resize ' . ((&columns * 90 + 182) / 364)
+exe 'vert 1resize ' . ((&columns * 68 + 138) / 277)
+exe 'vert 2resize ' . ((&columns * 69 + 138) / 277)
+exe 'vert 3resize ' . ((&columns * 69 + 138) / 277)
+exe '4resize ' . ((&lines * 43 + 41) / 83)
+exe 'vert 4resize ' . ((&columns * 68 + 138) / 277)
+exe '5resize ' . ((&lines * 37 + 41) / 83)
+exe 'vert 5resize ' . ((&columns * 68 + 138) / 277)
 tabedit ~/_git/nggg_db/include/pf/pf.h
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -751,17 +754,17 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 1resize ' . ((&columns * 72 + 182) / 364)
-exe '2resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 2resize ' . ((&columns * 72 + 182) / 364)
-exe 'vert 3resize ' . ((&columns * 72 + 182) / 364)
-exe 'vert 4resize ' . ((&columns * 72 + 182) / 364)
-exe 'vert 5resize ' . ((&columns * 72 + 182) / 364)
-exe '6resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 6resize ' . ((&columns * 72 + 182) / 364)
-exe '7resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 7resize ' . ((&columns * 72 + 182) / 364)
+exe '1resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 1resize ' . ((&columns * 55 + 138) / 277)
+exe '2resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 2resize ' . ((&columns * 55 + 138) / 277)
+exe 'vert 3resize ' . ((&columns * 55 + 138) / 277)
+exe 'vert 4resize ' . ((&columns * 55 + 138) / 277)
+exe 'vert 5resize ' . ((&columns * 53 + 138) / 277)
+exe '6resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 6resize ' . ((&columns * 55 + 138) / 277)
+exe '7resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 7resize ' . ((&columns * 55 + 138) / 277)
 argglobal
 inoremap <buffer> ,print ft_printf(");f)i
 inoremap <buffer> ,str std::string
@@ -863,7 +866,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 114 - ((35 * winheight(0) + 20) / 40)
+let s:l = 114 - ((34 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1083,7 +1086,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 283 - ((80 * winheight(0) + 40) / 81)
+let s:l = 283 - ((79 * winheight(0) + 40) / 80)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1193,7 +1196,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 512 - ((80 * winheight(0) + 40) / 81)
+let s:l = 512 - ((79 * winheight(0) + 40) / 80)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1303,7 +1306,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 125 - ((80 * winheight(0) + 40) / 81)
+let s:l = 125 - ((79 * winheight(0) + 40) / 80)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1413,7 +1416,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 112 - ((39 * winheight(0) + 20) / 40)
+let s:l = 112 - ((38 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1531,18 +1534,18 @@ normal! zt
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
-exe '1resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 1resize ' . ((&columns * 72 + 182) / 364)
-exe '2resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 2resize ' . ((&columns * 72 + 182) / 364)
-exe 'vert 3resize ' . ((&columns * 72 + 182) / 364)
-exe 'vert 4resize ' . ((&columns * 72 + 182) / 364)
-exe 'vert 5resize ' . ((&columns * 72 + 182) / 364)
-exe '6resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 6resize ' . ((&columns * 72 + 182) / 364)
-exe '7resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 7resize ' . ((&columns * 72 + 182) / 364)
-tabedit ~/_git/nggg_db/include/rm/rid.hpp
+exe '1resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 1resize ' . ((&columns * 55 + 138) / 277)
+exe '2resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 2resize ' . ((&columns * 55 + 138) / 277)
+exe 'vert 3resize ' . ((&columns * 55 + 138) / 277)
+exe 'vert 4resize ' . ((&columns * 55 + 138) / 277)
+exe 'vert 5resize ' . ((&columns * 53 + 138) / 277)
+exe '6resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 6resize ' . ((&columns * 55 + 138) / 277)
+exe '7resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 7resize ' . ((&columns * 55 + 138) / 277)
+tabedit ~/_git/nggg_db/include/ftrb/rid.hpp
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -1567,18 +1570,18 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 1resize ' . ((&columns * 121 + 182) / 364)
-exe '2resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 2resize ' . ((&columns * 121 + 182) / 364)
-exe '3resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 3resize ' . ((&columns * 121 + 182) / 364)
-exe '4resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 4resize ' . ((&columns * 121 + 182) / 364)
-exe '5resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 5resize ' . ((&columns * 120 + 182) / 364)
-exe '6resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 6resize ' . ((&columns * 120 + 182) / 364)
+exe '1resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 1resize ' . ((&columns * 92 + 138) / 277)
+exe '2resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 2resize ' . ((&columns * 92 + 138) / 277)
+exe '3resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 3resize ' . ((&columns * 92 + 138) / 277)
+exe '4resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 4resize ' . ((&columns * 92 + 138) / 277)
+exe '5resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 5resize ' . ((&columns * 91 + 138) / 277)
+exe '6resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 6resize ' . ((&columns * 91 + 138) / 277)
 argglobal
 inoremap <buffer> ,print std::cout <<  << std::endl;2F i
 inoremap <buffer> ,str std::string
@@ -1680,16 +1683,16 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 41 - ((36 * winheight(0) + 20) / 40)
+let s:l = 1 - ((0 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-41
-normal! 031l
+1
+normal! 0
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
-edit ~/_git/nggg_db/src/rm/rid.cpp
+edit ~/_git/nggg_db/src/ftrb/rid.cpp
 inoremap <buffer> ,print std::cout <<  << std::endl;2F i
 inoremap <buffer> ,str std::string
 inoremap <buffer> ,s std::
@@ -1790,11 +1793,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 22 - ((17 * winheight(0) + 20) / 40)
+let s:l = 1 - ((0 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-22
+1
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
@@ -1900,12 +1903,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 39 - ((38 * winheight(0) + 20) / 40)
+let s:l = 35 - ((6 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-39
-normal! 067l
+35
+normal! 09l
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -2010,12 +2013,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 43 - ((25 * winheight(0) + 20) / 40)
+let s:l = 24 - ((6 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-43
-normal! 09l
+24
+normal! 012l
 lcd ~/_git/nggg_db
 wincmd w
 argglobal
@@ -2120,11 +2123,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 39 - ((20 * winheight(0) + 20) / 40)
+let s:l = 44 - ((19 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-39
+44
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
@@ -2238,18 +2241,19 @@ normal! zt
 normal! 0
 lcd ~/_git/nggg_db
 wincmd w
-exe '1resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 1resize ' . ((&columns * 121 + 182) / 364)
-exe '2resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 2resize ' . ((&columns * 121 + 182) / 364)
-exe '3resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 3resize ' . ((&columns * 121 + 182) / 364)
-exe '4resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 4resize ' . ((&columns * 121 + 182) / 364)
-exe '5resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 5resize ' . ((&columns * 120 + 182) / 364)
-exe '6resize ' . ((&lines * 40 + 42) / 84)
-exe 'vert 6resize ' . ((&columns * 120 + 182) / 364)
+2wincmd w
+exe '1resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 1resize ' . ((&columns * 92 + 138) / 277)
+exe '2resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 2resize ' . ((&columns * 92 + 138) / 277)
+exe '3resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 3resize ' . ((&columns * 92 + 138) / 277)
+exe '4resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 4resize ' . ((&columns * 92 + 138) / 277)
+exe '5resize ' . ((&lines * 39 + 41) / 83)
+exe 'vert 5resize ' . ((&columns * 91 + 138) / 277)
+exe '6resize ' . ((&lines * 40 + 41) / 83)
+exe 'vert 6resize ' . ((&columns * 91 + 138) / 277)
 tabnext 3
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

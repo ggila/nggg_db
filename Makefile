@@ -26,6 +26,7 @@ MKGEN_SRCSDIRS_PF		:= src/pf
 MKGEN_SRCSDIRS_PF_TEST1	:= src/test/pf_test1
 MKGEN_SRCSDIRS_PF_TEST2	:= src/test/pf_test2
 MKGEN_SRCSDIRS_PF_TEST3	:= src/test/pf_test3
+MKGEN_SRCSDIRS_42DB	:= src/test/42db
 MKGEN_SRCSDIRS_RM		:= src/rm src/ftrb
 MKGEN_SRCSDIRS_SANDBOX	:= src/test/sandbox src/ftrb
 
@@ -120,6 +121,18 @@ else ifeq ($(BUILD_MODE),sandbox)
   # LD_FLAGS		+= -lboost_unit_test_framework
 
   SRCSBIN		= $(MKGEN_SRCSBIN_SANDBOX) #gen by mkgen
+  INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
+
+  LIBSMAKE		= BUILD_MODE=pf BUILD_MODE=rm
+  LIBSBIN		= libpf.a librm.a
+
+else ifeq ($(BUILD_MODE),42db)
+  NAME			:= 42db
+  CC_LD			= $(CC_CPP)
+  LD_FLAGS		+= -L. -lpf -lrm -Llibft_cpp -lft
+  # LD_FLAGS		+= -lboost_unit_test_framework
+
+  SRCSBIN		= $(MKGEN_SRCSBIN_42DB) #gen by mkgen
   INCLUDEDIRS	= $(MKGEN_INCLUDESDIRS) libft_cpp/_objs/_public
 
   LIBSMAKE		= BUILD_MODE=pf BUILD_MODE=rm

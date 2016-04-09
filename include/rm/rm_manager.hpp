@@ -6,7 +6,7 @@
 //   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2016/03/30 14:50:39 by ngoguey           #+#    #+#             //
-//   Updated: 2016/04/09 10:17:36 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/09 10:36:50 by ggilaber         ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -37,8 +37,8 @@ private:
 	~Manager();
 
 public:
-	Manager &getInstance(PF_Manager &pfm);
-	Manager &getInstance(void);
+	static Manager &getInstance(PF_Manager &pfm);
+	static Manager &getInstance(void);
 
 	Manager() = delete;
 	Manager(Manager const &src) = delete;

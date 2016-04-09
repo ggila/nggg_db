@@ -6,7 +6,7 @@
 /*   By: ggilaber <ggilaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 08:27:05 by ggilaber          #+#    #+#             */
-//   Updated: 2016/04/08 13:05:58 by ngoguey          ###   ########.fr       //
+/*   Updated: 2016/04/09 10:39:04 by ggilaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 RID::RID()
 	: _pageNum(-1), _slotNum(-1) {}
+
+RID::~RID() {}
 
 RID::RID(PageNum pageNum, SlotNum slotNum)
 	: _pageNum(pageNum), _slotNum(slotNum) {}
